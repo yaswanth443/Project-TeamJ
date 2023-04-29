@@ -1,0 +1,95 @@
+<div [ngClass]="bgimg">
+
+  <div style="position:absolute;z-index: 100;right:185px;top:18px;" *ngIf="isAuthenticated">
+    <button mat-icon-button (click)="sidenav.toggle()"
+        *ngIf="isLogin === false && isSignUp === false && isDefault === false && sidenav.mode === 'over'">
+      <mat-icon *ngIf="!sidenav.opened" style="color:#fff;font-size: 30px;"> menu </mat-icon>
+      <mat-icon *ngIf="sidenav.opened" style="color:#fff;font-size: 30px;"> close </mat-icon>
+    </button>
+  </div>
+  <div style="position:absolute;right: 25px; top:20px;z-index:1000;"
+       *ngIf="isLogin === false && isSignUp === false && isDefault === false">
+    <button mat-raised-button *ngIf="isAuthenticated" class="defaultregister" (click)="logout()">
+      <mat-icon>exit_to_app</mat-icon>
+      Logout
+    </button>
+  </div>
+
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
+      <img class="avatar mat-elevation-z8"
+           src="/assets/img/default-avatar.webp"
+           *ngIf="profileImage==null" />
+      <img class="avatar mat-elevation-z8"
+           [src]="profileImage"
+           *ngIf="profileImage!=null" />
+
+      <h4 class="name">{{nameOfUser}}</h4>
+      <p class="designation">{{userrole}}</p>
+
+      <mat-divider></mat-divider>
+
+      <button mat-button class="menu-button" routerLink="/dashboard" (click)="closeSideNav()">
+        <mat-icon>home</mat-icon>
+        <span>Home</span>
+      </button>
+      <button *ngIf="sharedService.isCustomer()" mat-button class="menu-button" routerLink="/order-food" (click)="closeSideNav()">
+        <mat-icon>fastfood</mat-icon>
+        <span>Order Food</span>
+      </button>
+      <button *ngIf="sharedService.isCustomer()" mat-button class="menu-button" routerLink="/dieticians" (click)="closeSideNav()">
+        <mat-icon>how_to_reg</mat-icon>
+        <span>Hire a Dietician</span>
+      </button>
+      <button *ngIf="sharedService.isCustomer()" mat-button class="menu-button" routerLink="/all-orders" (click)="closeSideNav()">
+        <mat-icon>restaurant</mat-icon>
+        <span>Recent Orders</span>
+      </button>
+      <button *ngIf="sharedService.isRestaurent()" mat-button class="menu-button" routerLink="/past-orders" (click)="closeSideNav()">
+        <mat-icon>restaurant</mat-icon>
+        <span>Recent Orders</span>
+      </button>
+      <button *ngIf="sharedService.isRestaurent()" mat-button class="menu-button" routerLink="/daily-orders" (click)="closeSideNav()">
+        <mat-icon>restaurant</mat-icon>
+        <span>Daily Orders</span>
+      </button>
+      <button *ngIf="sharedService.isDietitian()" mat-button class="menu-button" routerLink="/customers" (click)="closeSideNav()">
+        <mat-icon>people</mat-icon>
+        <span>My Customers</span>
+      </button>
+      <button *ngIf="sharedService.isDietitian()" mat-button class="menu-button" routerLink="/create-menu" (click)="closeSideNav()">
+        <mat-icon>people</mat-icon>
+        <span>Create Menu</span>
+      </button>
+      <button *ngIf="sharedService.isDietitian()" mat-button class="menu-button" routerLink="/view-menu" (click)="closeSideNav()">
+        <mat-icon>people</mat-icon>
+        <span>View Menu</span>
+      </button>
+      <!--<button *ngIf="sharedService.isAdmin()" mat-button class="menu-button" routerLink="/configure-items" (click)="closeSideNav()">
+    <mat-icon>fastfood</mat-icon>
+    <span>Item Configurations</span>
+  </button>-->
+      <button *ngIf="sharedService.isRestaurent()" mat-button class="menu-button" routerLink="/configure-menu" (click)="closeSideNav()">
+        <mat-icon>restaurant_menu</mat-icon>
+        <span>Configure Menu</span>
+      </button>
+      <button mat-button class="menu-button" routerLink="/profile" (click)="closeSideNav()">
+        <mat-icon>person</mat-icon>
+        <span>Profile</span>
+      </button>
+
+      <mat-divider></mat-divider>
+
+      <button mat-button class="menu-button" routerLink="/about" (click)="closeSideNav()">
+        <mat-icon>info</mat-icon>
+        <span>About</span>
+      </button>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <!--<div class="content mat-elevation-z8">-->
+      <div *ngIf="!isDefault"><img src="/assets/img/newlogo.png" style="padding: 10px;margin-top:0px;"></div>
+      <router-outlet></router-outlet>
+      <!--</div>-->
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
