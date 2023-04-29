@@ -1,0 +1,89 @@
+<div class="order-div">
+    <mat-card style="margin:0 auto;width:95%;padding-right: 0;padding-left:22px;">
+      <mat-card-content>
+        <h2 style="text-align: center;">{{_sharedService.isRestaurent() ? 'Your Menu' : ''}}</h2>
+        
+        <button mat-raised-button class="additem-owner mat-primary" (click)="addNewItem()"
+                style="width: auto; border: none; box-shadow: none; padding: 5px 10px; background-color: #0a5f62">
+          Create new item
+        </button>
+        <br /><br />
+        <div style="padding-right: 22px;">
+          <mat-accordion *ngFor="let parentItem of itemDetails; let i = index">
+            <mat-expansion-panel [expanded]="parentItem.panelOpenState"
+                                 (opened)="parentItem.panelOpenState = true; cartPanelOpenState = false"
+                                 (closed)="parentItem.panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{parentItem.itemName}}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <div class="order-block" *ngFor="let childItem of parentItem.childItems; let childItemIndex = index">
+                <div class="order-list">
+                  <div class="order-data">
+                    <h2 style="font-size: 16px;margin-bottom: 0;">{{childItem.itemName}}</h2>
+                    <p>
+                      <span style="text-align: center;float: left;color: #c1b9b9;">{{childItem.itemDescription}}</span>
+                    </p>
+                  </div>
+                  <div class="add-order">
+                    <img [src]="childItem.itemImage" style="margin-top: 0px; height: 200px; width: 200px">
+                    <!--<img src="/assets/img/orderlist1.jpg" style="margin-top:0px;">-->
+                    <div class="add-option">
+                      <button class="addorder" (click)="addItemToCart(parentItem.itemName, childItem)" *ngIf="!childItem.count">ADD</button>
+                      <button class="addorderoption" *ngIf="childItem.count">
+                        <!--<a (click)="removeItemFromCart(parentItem.itemName, childItem)">-</a>-->
+                        {{childItem.count}}<a (click)="addItemToCart(parentItem.itemName, childItem)">+</a>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-expansion-panel><br />
+          </mat-accordion>
+        </div>
+      </mat-card-content>
+
+
+
+
+      <div style="margin-right: 22px;" *ngIf="cartItems.length>0">
+        <div class="viewcart">
+          <p>{{cartItems.length}} items </p> <a (click)="viewCart()">Menu items</a>
+        </div>
+
+
+        <div *ngIf="cartPanelOpenState == true">
+          <mat-accordion>
+            <mat-expansion-panel [expanded]="cartPanelOpenState"
+                                 (opened)="cartPanelOpenState = true"
+                                 (closed)="cartPanelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Added Items
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <div class="order-block" *ngFor="let cartItem of cartItems">
+                <div class="order-list">
+                  <div class="order-data">
+                    <h2 style="font-size: 16px;margin-bottom: 0;">{{cartItem.parentItemName}} - {{cartItem.childItemName}}</h2>
+                  </div>
+                  <div class="add-order">
+                    <p style="float: right;"><b>{{cartItem.quantity}} {{cartItem.quantityUnit.unitLookupValue}} Qty</b></p>
+                  </div>
+                </div>
+              </div>
+              <div align="end">
+                <button mat-raised-button color="accent" (click)="clearCart()">Clear Menu</button>&nbsp;
+                <button mat-raised-button color="primary" (click)="saveConfirmationPopup()" style="background-color: #0a5f62">Save Menu</button>
+              </div>
+
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+
