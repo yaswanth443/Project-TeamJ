@@ -1,0 +1,100 @@
+<div class="parent-div">
+  <mat-card>
+    <mat-card-content>
+      <!--<h2> {{userName}}</h2>-->
+      <div class="user-profile">
+        <div class="user-image">
+          <img src="/assets/img/doctormale.png" style="margin-top:0px;width: 170px;" *ngIf="!(userProfileImage && userProfileImage!=null && userProfileImage!='')">
+          <img [src]="userProfileImage" style="margin-top:0px;width: 170px;border-radius: 50%;height: 170px;" *ngIf="userProfileImage && userProfileImage!=null && userProfileImage!=''">
+        </div>
+        <div class="user-data">
+          <p style="text-align: left;">
+            <b style="font-size: 18px; margin-right: 10px;">{{userTitle }} {{firstName}} </b>
+            <span style="color: #918d8d;display: none;">Profile is claimed</span>
+            <button mat-raised-button style="background: #0a5f62;color: #fff;float: right;" (click)="navigateBack()">Back</button>
+          </p>
+          <p>{{qualifiedDegree ? qualifiedDegree.unitLookupValue : ''}}</p>
+          <!--<p>Therapist Dietitian/Nutritionist </p>-->
+          <p>{{overallExperience}} Years Experience Overall  ( {{specialistExperience}} years as specialist)</p>
+          <p>
+            {{bio}}
+          </p>
+        </div>
+      </div>
+      <div style="width: 100%;padding-top:0;">
+        <mat-tab-group>
+          <mat-tab label="Info">
+            <div style="padding: 10px 10px 0 10px;">
+              <span style="float: left;">Address: {{address}}</span>
+              <span style="padding-left: 10px;float: right;">Consultation fee:  ${{price}}</span>
+            </div>
+            <br />
+            <div style="width: 100%;float: left;margin-top: 10px;">
+              <h2 style="float:left;font-size: 17px;color: #033d5e;margin-bottom: 5px;line-height: 18px;width: 100%;text-align: left;margin-top: 10px;"> Education Details: </h2>
+              <span *ngFor="let education of extraDegrees" style="float: left;color: #000;text-align: left;width: 100%;margin: 3px 0;">
+                <span style="color: #000;position: relative;top:-2px;font-size: 36px;">.</span>
+                {{education.qualifiedDegree.unitLookupValue}} - {{education.degreeUniversity}}, {{education.degreeYear}}
+              </span>
+            </div>
+            <br />
+            <div style="width: 100%;float: left;">
+              <h2 style="float:left;font-size: 17px;color: #033d5e;margin-bottom: 5px;line-height: 18px;width: 100%;text-align: left;margin-top: 10px;"> Career Experience: </h2>
+              <span *ngFor="let experience of experienceDetails" style="float: left;color: #000;text-align: left;width: 100%;margin: 3px 0;">
+                <span style="color: #000;position: relative;top:-2px;font-size: 36px;">.</span>
+                {{experience.organization}} <span style="padding-left: 7px;">{{experience.fromYear}} - {{experience.toYear}}</span>
+              </span>
+            </div>
+            <br />
+            <div style="width: 100%;float: left;">
+              <h2 style="float:left;font-size: 17px;color: #033d5e;margin-bottom: 5px;line-height: 18px;width: 100%;text-align: left;margin-top: 10px;"> Awards and Recognitions: </h2>
+              <span *ngFor="let recognition of recognitions" style="float: left;color: #000;text-align: left;width: 100%;margin: 3px 0;">
+                <span style="color: #000;position: relative;top:-2px;font-size: 36px;">.</span>
+                {{recognition.awardsOrRecognitions}} - {{recognition.yearOfRecognition}}
+              </span>
+            </div>
+          </mat-tab>
+          <mat-tab label="Reviews">
+            <div style="padding: 10px;">
+              <div class="viewratings" *ngFor="let rating of ratings; let i = index">
+                <p>
+                  <img src="/assets/img/profileimg1.png" style="padding: 0px;margin-top:0px;" *ngIf="i%2==0">
+                  <img src="/assets/img/profileimg2.png" style="padding: 0px;margin-top:0px;" *ngIf="i%2!=0">
+                  <span class="ratinguser">{{rating.fullName}}</span>
+                </p>
+                <h2 align="start">Visited For {{rating.commentCategory.unitLookupValue}}</h2>
+                <p>
+                  <span>
+                    <mat-icon>'{{rating.recommended==true ? 'thumb_up': 'thumb_down'}}</mat-icon>
+                    {{rating.recommended==true ? 'I recommend the dietitian' : 'I do not recommend the dietitian'}}
+                  </span>
+                </p>
+                <p>
+                  <span class="ratingvalue">{{rating.rating}}<mat-icon>star</mat-icon></span>
+                  <span class="ordertime">Yesterday</span>
+                </p>
+                <p>{{rating.comments}}</p>
+              </div>
+              <div class="viewratings">
+                <p>
+                  <img src="/assets/img/profileimg1.png" style="padding: 0px;margin-top:0px;">
+                  <span class="ratinguser">Gautham Nandhan Sahoo</span>
+                </p>
+                <p><span class="ratingvalue">5 <mat-icon style="position: relative;top: 1px;">star</mat-icon></span> <span>Delivery</span> <span class="ordertime">Yesterday</span></p>
+                <p>Great taste & good ambience</p>
+              </div>
+              <div class="viewratings">
+                <p>
+                  <img src="/assets/img/profileimg2.png" style="padding: 0px;margin-top:0px;">
+                  <span class="ratinguser">Abshiktha Bhargav</span>
+                </p>
+                <p><span class="ratingvalue">5 <mat-icon style="position: relative;top: 1px;">star</mat-icon></span> <span>Delivery</span> <span class="ordertime">Yesterday</span></p>
+                <p>Great taste & good ambience</p>
+              </div>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+</div>

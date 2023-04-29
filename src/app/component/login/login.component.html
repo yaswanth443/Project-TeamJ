@@ -1,0 +1,40 @@
+<mat-card>
+  <mat-card-content>
+    <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+      <h2>Welcome to Nutri Eats Application</h2>
+      <mat-error *ngIf="!loginValid">
+        {{error}}
+      </mat-error>
+      <mat-form-field>
+        <input matInput placeholder="Email/Mobile Number" [(ngModel)]="username" name="username" required>
+        <mat-error>
+          Please provide a valid email address
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="password" placeholder="Password" [(ngModel)]="password" name="password" required>
+        <mat-error>
+          Please provide a valid password
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Type of user</mat-label>
+        <mat-select [(ngModel)]="userType" placeholder="User Type" name="userType" required>
+          <mat-option value="ROLE_CUSTOMER">Customer</mat-option>
+          <mat-option value="ROLE_DIETITIAN">Dietician</mat-option>
+          <mat-option value="ROLE_RESTAURANT">Restaurant</mat-option>
+          <!--<mat-option value="ROLE_ADMIN">Admin</mat-option>-->
+        </mat-select>
+        <mat-error>
+          Please select a value
+        </mat-error>
+      </mat-form-field>
+      <a href="/resetPassword" style="float:left;font-weight: 500;color: #0b5e8f; font-size: 16px;text-decoration: none;margin-bottom: 15px;width: 100%;text-align: left;">Forgot password?</a><br />
+      <button mat-raised-button color="primary" [disabled]="!loginForm.form.valid" class="defaultlogin">
+        <mat-icon>power_settings_new</mat-icon>&nbsp;Login
+      </button>&nbsp;&nbsp;
+      <button mat-raised-button color="primary"  class="defaultregister" routerLink="/signup">Register</button>
+      
+    </form>
+  </mat-card-content>
+</mat-card>
