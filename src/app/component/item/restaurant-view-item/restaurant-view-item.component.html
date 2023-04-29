@@ -1,0 +1,108 @@
+<div class="order-div">
+    <mat-card style="margin:0 auto;width:95%;padding-right: 0;padding-left:22px;">
+      <mat-card-content>
+        <h2 style="text-align: center;">{{_sharedService.isRestaurent() ? 'Your Menu' : 'Order food'}}</h2>
+        <button mat-raised-button class="additem-owner mat-primary" (click)="addNewItem()"
+                *ngIf="_sharedService.isRestaurent()" style="width: auto;border: none;box-shadow: none;padding: 5px 10px;">Add new item</button>
+        <button mat-raised-button class="additem-owner" (click)="viewRatings()"
+                *ngIf="!_sharedService.isRestaurent()" style="display: none;">
+         View Ratings  
+        </button>
+        
+        <a class="additem-owner" (click)="viewRatings()" *ngIf="!_sharedService.isRestaurent()">
+          <span class="ratingvalue" style="margin-left: 17px;margin-bottom: 3px;">
+            <mat-icon>star</mat-icon> 4.5
+          </span>
+          <span class="ratingscount">15+ ratings</span></a>
+        <br /><br />
+        <div style="padding-right: 22px;">
+          <mat-accordion *ngFor="let parentItem of itemDetails; let i = index">
+            <mat-expansion-panel style="width:70%;margin:0 auto;" [expanded]="parentItem.panelOpenState"
+                                 (opened)="parentItem.panelOpenState = true; cartPanelOpenState = false"
+                                 (closed)="parentItem.panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{parentItem.parentItemName}}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <div class="order-block" *ngFor="let childItem of parentItem.childItems; let childItemIndex = index">
+                <div class="order-list">
+                  <div class="order-data">
+                    <h2 style="font-size: 16px;margin-bottom: 0;">{{childItem.itemName}}</h2>
+                    <p>
+                      <span style="text-align: center;float: left;color: #c1b9b9;">{{childItem.itemDescription}}</span>
+                    </p>
+                  </div>
+                  <div class="add-order">
+                    <img [src]="childItem.itemImage" style="margin-top: 0px; height: 125px; width: 200px">
+                    <!--<img src="/assets/img/orderlist1.jpg" style="margin-top:0px;">-->
+                    <div class="add-option" *ngIf="!_sharedService.isRestaurent()">
+                      <button class="addorder" (click)="addItemToCart(parentItem.parentItemName, childItem)" *ngIf="!childItem.count">ADD</button>
+                      <button class="addorderoption" *ngIf="childItem.count">
+                        <a (click)="removeItemFromCart(parentItem.parentItemName, childItem)">-</a>{{childItem.count}}<a (click)="addItemToCart(parentItem.parentItemName, childItem)">+</a>
+                      </button>
+                      <!--<p style="margin-bottom: 0;">
+                  <button class="addorderoption">
+                    <a (click)="removeItemFromCart(parentItem.parentItemName, childItem)">-</a>{{childItem.count}}<a (click)="addItemToCart(parentItem.parentItemName, childItem)">+</a>
+                  </button>
+                </p>-->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-expansion-panel><br />
+          </mat-accordion>
+        </div>
+      </mat-card-content>
+
+
+
+
+      <div style="margin-right: 22px;" *ngIf="cartItems.length>0">
+        <div class="viewcart">
+          <p>{{cartItems.length}} items </p> <a (click)="viewCart()">View cart</a>
+        </div>
+
+
+        <div *ngIf="cartPanelOpenState == true">
+          <mat-accordion>
+            <mat-expansion-panel [expanded]="cartPanelOpenState"
+                                 (opened)="cartPanelOpenState = true"
+                                 (closed)="cartPanelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Added Items
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <div class="order-block" *ngFor="let cartItem of cartItems">
+                <div class="order-list">
+                  <div class="order-data">
+                    <h2 style="font-size: 16px;margin-bottom: 0;">{{cartItem.parentItemName}} - {{cartItem.childItemName}}: {{cartItem.quantity}} * ({{cartItem.itemWeightsAndPrices.quantity}} {{cartItem.itemWeightsAndPrices.quantityUnit.unitLookupValue}} - ${{cartItem.itemWeightsAndPrices.itemPrice}})</h2>
+                  </div>
+                  <div class="add-order">
+                    <p style="float: right;">${{cartItem.quantity * cartItem.itemWeightsAndPrices.itemPrice}}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="ordersummary">
+                <p style="font-weight: 600;">Item Total <span>${{cartTotal | number:'1.2'}}</span></p>
+                <p>Order package charges <span>$10.00</span></p>
+                <p>Delivery partner fee <span>$20.00</span></p>
+                <p style="color: green;">Discount Applied <span>-$30.00</span></p>
+                <p>Taxes <span>$30.00</span></p>
+                <p style="font-weight: 600;">Bill Total <span>${{cartTotal+30 | number:'1.2'}}</span></p>
+              </div>
+              <div align="end">
+                <button mat-raised-button color="accent" (click)="clearCart()">Clear cart</button>&nbsp;
+                <button mat-raised-button color="primary" (click)="addressConfirmationPopup()">Pay ${{cartTotal+30 | number:'1.2'}} to place order</button>
+              </div>
+
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+

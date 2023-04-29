@@ -1,0 +1,93 @@
+<mat-card *ngIf="!dataSource">
+  You have no daily orders
+</mat-card>
+<div *ngIf="dataSource && dataSource.data">
+  <article class="table-header">
+    <div>
+      <h1 class="page-headers">Your Daily Orders</h1>
+    </div>
+  </article>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="customerName">
+      <th mat-header-cell *matHeaderCellDef> Customer Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.customerName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="customerAddress">
+      <th mat-header-cell *matHeaderCellDef> Customer Address </th>
+      <td mat-cell *matCellDef="let element"> {{element.customerAddress}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="dietitianName">
+      <th mat-header-cell *matHeaderCellDef> Dietitian Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.dietitianName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="orderId">
+      <th mat-header-cell *matHeaderCellDef> Order Id </th>
+      <td mat-cell *matCellDef="let element"> {{element.orderId}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="orderStatus">
+      <th mat-header-cell *matHeaderCellDef> Status </th>
+      <td mat-cell *matCellDef="let element"> {{element.orderStatus}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-raised-button color="primary" (click)="openDialog(element)">View</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
+<br />
+<br />
+<div *ngIf="dataSource2 && dataSource2.data">
+  <article class="table-header">
+    <div>
+      <h1 class="page-headers">Daily orders for which you are yet to create an order today</h1>
+    </div>
+  </article>
+  <table mat-table [dataSource]="dataSource2" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="customerName">
+      <th mat-header-cell *matHeaderCellDef> Customer Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.customerName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="customerAddress">
+      <th mat-header-cell *matHeaderCellDef> Customer Address </th>
+      <td mat-cell *matCellDef="let element"> {{element.customerAddress}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="dietitianName">
+      <th mat-header-cell *matHeaderCellDef> Dietitian Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.dietitianName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="orderId">
+      <th mat-header-cell *matHeaderCellDef> Order Id </th>
+      <td mat-cell *matCellDef="let element"> {{element.orderId}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="orderStatus">
+      <th mat-header-cell *matHeaderCellDef> Status </th>
+      <td mat-cell *matCellDef="let element"> {{element.orderStatus}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-raised-button color="primary" (click)="openDialog2(element)">Create Order</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
