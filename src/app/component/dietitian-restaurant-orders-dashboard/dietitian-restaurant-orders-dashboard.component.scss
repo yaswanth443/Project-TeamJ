@@ -1,0 +1,27 @@
+.parent-div {
+  margin: 5.5em auto;
+  min-height: 30%;
+}
+
+.mat-table {
+  width: 90%;
+  bottom: 0;
+  margin: 4.5em auto;
+}
+
+mat-card {
+  width: 90%;
+  min-height: 30%;
+  bottom: 0;
+  text-align: center;
+}
+
+.table-header {
+  width: 100%;
+  margin: auto;
+  text-align: right;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
