@@ -1,0 +1,59 @@
+<h1 mat-dialog-title style="text-align:center">Order Details{{orderStatusCode=='REC_ORDER_STATUS_3'?' - Payment Completed':''}}</h1>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="restaurantName">
+    <th mat-header-cell *matHeaderCellDef> Restaurant </th>
+    <td mat-cell *matCellDef="let element"> {{element.restaurantName}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="childItems">
+    <th mat-header-cell *matHeaderCellDef> Items </th>
+    <td mat-cell *matCellDef="let element"> {{element.childItems}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="itemName">
+    <th mat-header-cell *matHeaderCellDef> Item Category </th>
+    <td mat-cell *matCellDef="let element"> {{element.itemName}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="quantityAndUnit">
+    <th mat-header-cell *matHeaderCellDef> Quantity </th>
+    <td mat-cell *matCellDef="let element"> {{element.quantityAndUnit}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="instructions">
+    <th mat-header-cell *matHeaderCellDef> Instructions </th>
+    <td mat-cell *matCellDef="let element"> {{element.instructions}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="fromDate">
+    <th mat-header-cell *matHeaderCellDef> Required From </th>
+    <td mat-cell *matCellDef="let element"> {{element.fromDate | date}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="toDate">
+    <th mat-header-cell *matHeaderCellDef> Required Till </th>
+    <td mat-cell *matCellDef="let element"> {{element.toDate | date}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="deliveryTime">
+    <th mat-header-cell *matHeaderCellDef> Time of delivery </th>
+    <td mat-cell *matCellDef="let element"> {{element.deliveryTime}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="price">
+    <th mat-header-cell *matHeaderCellDef> Price </th>
+    <td mat-cell *matCellDef="let element">
+      <span matPrefix>$&nbsp;</span>{{element.price}}
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<div mat-dialog-actions align="end">
+  <button [mat-dialog-close] mat-raised-button color="primary">Close</button>
+  <button mat-raised-button color="warn" (click)="submit()" *ngIf="orderStatusCode == 'REC_ORDER_STATUS_2'">Pay ${{orderTotalAmount}} to confirm</button>
+</div>

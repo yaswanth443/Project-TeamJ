@@ -1,0 +1,21 @@
+.parent-div {
+  min-height: 30%;
+}
+
+mat-card {
+  width: 90%;
+  min-height: 30%;
+  bottom: 0;
+  text-align: center;
+  margin: 0 auto;
+}
+table {
+  width: 100%;
+  bottom: 0;
+  /*min-height: 30%;*/
+  margin: 1em auto;
+}
+
+th.mat-header-cell {
+  text-align: center;
+}
