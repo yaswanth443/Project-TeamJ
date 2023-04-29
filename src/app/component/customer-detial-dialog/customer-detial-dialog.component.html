@@ -1,0 +1,156 @@
+<br />
+<br />
+<mat-dialog-content>
+  <h1 style="text-align: center; font-weight: bold; font-family: Arial; font-size: 36px;">Customer Profile {{customer.status.unitLookupCode === 'SUBSCRIPTION_STATUS_5'? '-- Meal Ordered' : ''}}</h1>
+
+  <h3 class="dialog-sub-heading">
+    <b style="margin-right:7px;font-weight:500;">Name:</b>
+    <span style="display: inline">{{customer.firstName}}, {{customer.lastName}}</span>
+  </h3>
+
+  <h3 class="dialog-sub-heading">
+    <b style="margin-right:7px;font-weight:500;">Email:</b>
+      <span style="display: inline">{{customer.userName}}</span>
+</h3>
+
+  <h3 class="dialog-sub-heading">
+    <b style="margin-right:7px;font-weight:500;">Mobile Number:</b>
+    <span style="display: inline">{{customer.phoneNumber}}</span>
+  </h3>
+
+  <h3 class="dialog-sub-heading" *ngIf="customer.preferredMealOption">
+    <b style="margin-right:7px;font-weight:500;">Preferred Meal:</b>
+    <span style="display: inline">{{customer.preferredMealOption.unitLookupValue}}</span>
+  </h3>
+
+  <h3 class="dialog-sub-heading">
+    <b style="margin-right:7px;font-weight:500;">Listed Allergens:</b>
+    <span style="display: inline">{{customer.allergens ? customer.allergens : 'N/A'}}</span>
+  </h3>
+
+  <div style="padding-right: 22px;">
+    <mat-accordion>
+      <mat-expansion-panel [expanded]="panelOpenState"
+                           (opened)="panelOpenState = true"
+                           (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h3 class="dialog-sub-heading" style="margin-bottom: 0px">
+              <b style="margin-right:7px;font-weight:500;">
+                Responses for additional question from customer
+              </b>
+            </h3>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <h3 class="dialog-sub-heading">
+          <b style="margin-right:7px;font-weight:500;">
+            Have you ever worked with a nutritionist?
+          </b>
+          <span style="display: inline">Ans: {{customer.quesres ? customer.quesres : 'N/A'}}</span>
+        </h3>
+        <h3 class="dialog-sub-heading">
+          <b style="margin-right:7px;font-weight:500;">
+            Which best describes your sex?
+          </b>
+          <span style="display: inline">Ans: {{customer.sex ? customer.sex : 'N/A'}}</span>
+        </h3>
+        <h3 class="dialog-sub-heading">
+          <b style="margin-right:7px;font-weight:500;">
+            How would you rate your sleeping habits?
+          </b>
+          <span style="display: inline">Ans: {{customer.sleep ? customer.sleep : 'N/A'}}</span>
+        </h3>
+        <h3 class="dialog-sub-heading">
+          <b style="margin-right:7px;font-weight:500;">
+            How would you rate your nutrition habits?
+          </b>
+          <span style="display: inline">Ans: {{customer.nutrition ? customer.nutrition : 'N/A'}}</span>
+        </h3>
+        <h3 class="dialog-sub-heading">
+          <b style="margin-right:7px;font-weight:500;">
+            How would you rate your hydration habits?
+          </b>
+          <span style="display: inline">Ans: {{customer.hydration ? customer.hydration : 'N/A'}}</span>
+        </h3>
+        <h3 class="dialog-sub-heading">
+          <b style="margin-right:7px;font-weight:500;">
+            How would you rate your physical activity habits?
+          </b>
+          <span style="display: inline">Ans: {{customer.phyActivity ? customer.phyActivity : 'N/A'}}</span>
+        </h3>
+      </mat-expansion-panel><br />
+    </mat-accordion>
+  </div>
+
+  <h3 class="dialog-sub-heading" *ngIf="customer.customerInput && (customer.customerInput!=null || customer.customerInput!='')">
+    <b style="margin-right:7px;font-weight:500;">
+      Notes from Customer:
+    </b>
+    <span style="display: inline">{{customer.customerInput}}</span>
+  </h3>
+
+  <h3 class="dialog-sub-heading" *ngIf="customer.dietitianInput && (customer.dietitianInput!=null || customer.dietitianInput!='')">
+    <b style="margin-right:7px;font-weight:500;">
+      Your previous message to customer:
+    </b>
+    <span style="display: inline">{{customer.dietitianInput}}</span>
+  </h3>
+  <app-list-all-items *ngIf="showItemTable" [customerName]="customer.userName" [viewMode]="viewMode(customer.status)"></app-list-all-items>
+  <div style="width:100%;float:left;" class="quotemeal" *ngIf="showItemTable && customer.status && (customer.status.unitLookupCode == 'SUBSCRIPTION_STATUS_1' || customer.status.unitLookupCode == 'SUBSCRIPTION_STATUS_3')">
+    <h3 class="dialog-sub-heading" style="float:left;margin-bottom: 0;">Quote an amount for the meal:</h3>
+    <mat-form-field style="float: right">
+      <mat-label>Amount per Week</mat-label>
+      <input matInput type="number" name="amount" [(ngModel)]="amount" required>
+      <span matPrefix>$&nbsp;</span>
+      <mat-error>
+        Please provide a value
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div *ngIf="showItemTable && customer.status && (!(customer.status.unitLookupCode == 'SUBSCRIPTION_STATUS_1' || customer.status.unitLookupCode == 'SUBSCRIPTION_STATUS_3'))">
+    Quoted Amount <h3 style="display: inline; float: right">{{customer.subscriptionAmount}}</h3>
+  </div>
+  <div style="width:100%;float:left;" *ngIf="(messageCustomer || showItemTable) && !viewMode(customer.status)">
+    <h2>Notes to Customer:</h2>
+    <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"
+              class="textarea" rows="5" [(ngModel)]="messageInput"></textarea>
+  </div>
+</mat-dialog-content>
+
+<div mat-dialog-actions align="end">
+  <span *ngIf="!viewMode(customer.status)">
+    <span *ngIf="!messageCustomer && !showItemTable">
+      <button mat-raised-button color="primary" (click)="message()">Click to Message Customer</button>
+      &nbsp;&nbsp;
+    </span>
+    <span *ngIf="messageCustomer && !showItemTable">
+      <button mat-raised-button color="primary" (click)="sendMessage()">Send Message</button>
+      &nbsp;&nbsp;
+    </span>
+    <span *ngIf="!messageCustomer && !showItemTable">
+      <button mat-raised-button color="primary" (click)="prepareMeal()">
+        {{customer.status.unitLookupCode == 'SUBSCRIPTION_STATUS_1'? 'Prepare Meal':'Modify Meal'}}
+      </button>
+      &nbsp;&nbsp;
+    </span>
+    <span *ngIf="showItemTable">
+      <button mat-raised-button color="primary" (click)="sendMeal()">Send Meal</button>
+      &nbsp;&nbsp;
+    </span>
+  </span>
+  <span *ngIf="viewMode(customer.status)">
+    <span *ngIf="!messageCustomer && !showItemTable">
+      <button mat-raised-button color="primary" (click)="prepareMeal()">
+        View Items
+      </button>
+      &nbsp;&nbsp;
+    </span>
+    <span *ngIf="!(!messageCustomer && !showItemTable) && customer.status.unitLookupCode !== 'SUBSCRIPTION_STATUS_5'">
+      <button mat-raised-button color="primary">
+        Order Menu
+      </button>
+      &nbsp;&nbsp;
+    </span>
+  </span>
+  <button mat-raised-button color="accent" (click)="close()">Close</button>
+</div>
