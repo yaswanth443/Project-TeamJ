@@ -1,0 +1,32 @@
+<span *ngIf="dataExists">
+  <article class="table-header">
+    <div>
+      <br />
+      <h2 style="display:inline;">Your menu prepared by your Dietitian:</h2>
+    </div>
+  </article>
+  <table mat-table [dataSource]="dataSource">
+    <ng-container [matColumnDef]="col.key" *ngFor="let col of columnsSchema">
+      <th mat-header-cell *matHeaderCellDef [ngSwitch]="col.key">
+        <span *ngSwitchDefault>{{ col.label }}</span>
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <div [ngSwitch]="col.type">
+          <span *ngSwitchCase="'date'">
+            {{ element[col.key] | date: 'mediumDate' }}
+          </span>
+          <span *ngSwitchDefault>
+            {{ element[col.key] }}
+          </span>
+        </div>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</span>
+<span *ngIf="!dataExists">
+  Menu not yet prepared
+</span>
+<br />
+<br />
