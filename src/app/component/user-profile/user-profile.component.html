@@ -1,0 +1,54 @@
+<div class="parent-div" *ngIf="userProfileActivated=='Y'">
+  <mat-card>
+    <mat-card-content>
+      <!--<h2> {{userName}}</h2>-->
+      <div class="user-profile">
+        <div class="user-image">
+          <img src="/assets/img/doctormale.png" style="margin-top:0px;width: 170px;" *ngIf="!(userProfileImage && userProfileImage!=null)">
+          <img [src]="userProfileImage" style="margin-top:0px;width: 170px;border-radius: 50%;height: 170px;" *ngIf="userProfileImage && userProfileImage!=null">
+        </div>
+        <div class="user-data">
+          <p style="text-align: left;">
+            <b style="font-size: 18px; margin-right: 10px;font-weight: 500;">{{userTitle }} {{firstName}} </b>
+            <span style="color: #918d8d;float: right;padding-right: 10px;">
+              <span style="font-size: 14px;position: relative;top: 3px;left: -3px;color: #f5b30b;font-weight: 500;">{{rating ? rating : '0'}}</span>
+              <button mat-icon-button
+                      color="accent"
+                      *ngFor="let ratingId of ratingArr; index as i"
+                      [id]="'star_' + i"
+                      matTooltipPosition="above"
+                      style="pointer-events: none; cursor: default;width:22px;height: 22px;">
+                <mat-icon>
+                  {{ showIcon(i) }}
+                </mat-icon>
+              </button>
+            </span>
+          </p>
+          <p style="font-size: 15px;color: #1c4a36;">{{qualifiedDegree ? qualifiedDegree.unitLookupValue : ''}}</p>
+          <!--<p>Therapist Dietitian/Nutritionist </p>-->
+          <p style="position: relative;padding-left: 20px;font-family: Karla, sans-serif;color: rgba(28, 74, 54, 1);font-size: 13px;"
+             *ngIf="certified=='Y'">
+            <!--<mat-icon style="position: absolute;left: -3px;width: 20px;height: 20px;font-size: 20px;color: green;">check_circle_outline</mat-icon>-->
+            <img src="/assets/img/certified.svg" style="position: absolute;left: -3px;width: 20px;height: 20px;font-size: 20px;color: green;">
+            Certified Registered Dietitian
+          </p>
+
+          <hr>
+          <p style="font-family: Karla, sans-serif;color: #1c4a36;font-size: 14px;">
+            {{bio}}
+          </p>
+          <div class="services-offered" style="margin-top: 7px;">
+            <div style="width:70%;display: inline-block;"><span *ngFor="let lookup of selectedServicesCategories">
+              {{lookup.unitLookupValue}}
+            </span></div>
+            <p style="margin: 0;float: right;width: auto;">
+              <button mat-raised-button style="background: #0a5f62;color: #fff;" (click)="viewDetailProfile()">View profile</button>
+              <button mat-raised-button style="margin-left: 10px;background: #0a5f62;color: #fff;" (click)="hireDietitian()">{{hiringStatus=='' ? 'Hire dietitian' : 'View hired details'}}</button>
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+</div>
