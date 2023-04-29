@@ -1,0 +1,133 @@
+
+html, body {
+  height: 100%;
+}
+
+.bgimg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: url('/assets/img/logobanner1.png') no-repeat center center fixed;
+  background-size: cover;
+  background-position: right;
+}
+
+.bgimgdefault {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: url('/assets/img/newbanner2.jpg') no-repeat center center fixed;
+  background-size: cover;
+  background-position: right;
+}
+
+.bgimg-customer {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: url('/assets/img/finalbanner.png') no-repeat center center fixed;
+  background-size: cover;
+}
+.bgimg-dietitian {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: url('/assets/img/dietitian1.png') no-repeat center center fixed;
+  background-size: cover;
+}
+
+mat-toolbar {
+  background: #004a9f;
+  color: white;
+  position: absolute;
+  z-index: 999;
+}
+
+mat-sidenav {
+  top: 15px;
+  margin: 16px;
+  width: 200px;
+  border-right: none;
+  background: #002b5c;
+  color: white;
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+}
+
+.content {
+  height: calc(100vh - 130px);
+  border-radius: 10px;
+  margin: 16px;
+  margin-left: 32px;
+  padding: 16px;
+ /* overflow: hidden;*/
+}
+
+mat-sidenav-container {
+  height: calc(100vh - 65px);
+}
+
+.menu-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 1rem;
+
+  mat-icon {
+    margin-right: 8px;
+  }
+}
+
+.avatar {
+  margin-top: 16px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.name {
+  margin-top: 8px;
+  font-weight: normal;
+}
+
+.designation {
+  margin-top: 2px;
+  font-size: 0.7rem;
+  color: lightgrey;
+}
+
+mat-divider {
+  margin-top: 16px;
+  margin-bottom: 16px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.mat-drawer-container {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  -webkit-overflow-scrolling: touch;
+  display: initial;
+  /*overflow: hidden;*/
+}
+
+.mat-drawer-content {
+  position: relative;
+  z-index: 1;
+  display: block;
+  /*overflow: hidden;*/
+}
+.mat-drawer {
+  height: calc(100vh - 40px);
+}
+
+/* testing purpose  */
+.mat-drawer-backdrop {
+  right:auto;
+  bottom: auto;
+}
+
+
+

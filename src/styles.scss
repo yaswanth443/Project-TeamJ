@@ -1,0 +1,459 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.defaultlogin {
+  box-shadow: none !important;
+  padding: 6px 25px;
+  border-radius: 30px !important;
+  font-size: 18px;
+  margin: 20px;
+  background: linear-gradient(to right, #820202,#f10000) !important;
+  width: 150px;
+  color: #fff !important;
+}
+
+.defaultregister {
+  background: linear-gradient(to right,#f10000, #820202) !important;
+  margin: 0;
+  box-shadow: none !important;
+  padding: 6px 25px;
+  border-radius: 30px !important;
+  font-size: 18px;
+  width: 150px;
+  color: #fff !important;
+}
+
+.defaultregister:disabled {
+  opacity: 0.7;
+}
+
+.defaultlogin:disabled {
+  opacity: 0.7;
+}
+
+.textarea {
+  width: 100%;
+  border: 1px solid #ccc !important;
+  padding: 6px !important;
+}
+
+.quotemeal .mat-form-field-flex {
+  align-items: unset;
+}
+
+.quotemeal .mat-form-field-infix {
+  padding-top: 0;
+  margin-top: -16px;
+}
+
+.quotemeal .mat-input-element {
+  margin-top: 5px;
+}
+
+.mat-raised-button {
+  border-radius: 30px !important;
+}
+
+.profile-block {
+  width: 100%;
+  display: flex;
+}
+
+.profile-block .profile-fields {
+  width: 33.33%;
+}
+
+.services-offered {
+  width: 100%;
+  float: left;
+}
+
+.services-offered .service-list {
+  // margin-left: 15px;
+  width: 100%;
+  float: left;
+}
+
+.mat-checkbox, t {
+  width: 100%;
+}
+
+.mat-checkbox-layout {
+  display: block !important;
+}
+
+.mat-checkbox-label {
+  float: left;
+}
+
+.mat-checkbox-inner-container {
+  float: right;
+}
+
+.checkbox-block {
+  width: 100%;
+  float: left;
+  max-height: 200px;
+  overflow-y: auto;
+  padding: 0 5px 0 0;
+}
+
+.user-profile {
+  width: 100%;
+  position: relative;
+  min-height: 180px;
+}
+
+.user-profile .user-image {
+  position: absolute;
+}
+
+.user-profile .user-data {
+  position: relative;
+  padding-left: 200px;
+}
+
+.user-profile .user-data p {
+  width: 100%;
+  text-align: left;
+}
+
+.food-block {
+  width: 100%;
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.food-block .restaurant-list {
+  width: 33%;
+  cursor: pointer;
+  transition: 1s;
+  background-color: #fff;
+  padding: 10px;
+  margin-right: 15px;
+  border-radius: 30px;
+}
+
+.food-block .restaurant-list img {
+  width: 370px;
+  height: 230px;
+  border-radius: 30px;
+}
+
+.food-block .restaurant-list .orderlink {
+  visibility: hidden;
+  width: 81%;
+  float: left;
+  text-align: center;
+  padding: 5px 10px;
+  background: #0a5f62;
+  margin-top: 15px;
+  transition: 1s;
+  color: #fff;
+}
+.restaurant-data {
+  transition: 1s;
+}
+.food-block .restaurant-list:hover {
+  transform: translate(0, -15px);
+  transition: 1s;
+}
+.food-block .restaurant-list:hover .restaurant-data {
+  opacity: 1;
+  transition: 1s;
+}
+
+.food-block .restaurant-list .orderlink a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.food-block .restaurant-list:hover .orderlink {
+  visibility: visible;
+  transition: 1s;
+}
+/*.food-block .restaurant-list .rating::before {
+    content: "\E938";
+  }*/
+.viewratings {
+  width: 100%;
+  float: left;
+}
+
+.viewratings p {
+  width: 100%;
+  float: left;
+  text-align: left;
+}
+
+.viewratings p img {
+  width: 40px;
+  float: left;
+}
+
+.viewratings p .ratinguser {
+  padding: 10px 0 0 10px;
+  float: left;
+}
+
+.ratingvalue {
+  background: green;
+  padding: 0px 5px;
+  color: #fff;
+  float: left;
+  background: #f5b30b;
+  line-height: 18px;
+}
+
+.viewratings p .ordertime {
+  color: #ccc;
+  padding-left: 5px;
+}
+
+.viewratings p span {
+  margin-right: 5px;
+  float: left;
+}
+
+.ratingscount {
+  width: 100%;
+  float: left;
+}
+
+.ratingvalue .mat-icon {
+  width: 12px;
+  height: 12px;
+  font-size: 13px;
+}
+
+.mat-radio-label-content {
+  line-height: initial !important;
+}
+
+.mat-radio-container:hover .mat-radio-persistent-ripple {
+  opacity: 1 !important;
+  background-color: transparent;
+}
+
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-persistent-ripple,
+.mat-radio-button.mat-accent:active .mat-radio-persistent-ripple {
+  background-color: transparent;
+}
+
+.ordersummary {
+  width: 100%;
+  float: left;
+}
+
+.ordersummary p {
+  width: 100%;
+  float: left;
+}
+
+.ordersummary p span {
+  float: right;
+}
+
+.takesurvey {
+  width: 100%;
+  float: left;
+}
+
+.surveyblock {
+  width: 45%;
+  margin: 0 auto;
+  background: #fff;
+  padding: 15px 10px;
+}
+
+.survey {
+  width: 100%;
+  float: left;
+}
+
+.surveydietitian-info {
+  width: 47.5%;
+  position: relative;
+  margin: 0 auto;
+  box-shadow: 0 21px 28px rgba(0, 0, 0, .1);
+  border: 1px solid #ccc;
+  padding-top: 5px;
+  background: #fff;
+  top: -85px;
+  padding-bottom: 20px;
+}
+
+.surveydietitian-info img {
+  position: absolute;
+  left: 5px;
+  top: 10px;
+  width: 60px;
+  border-radius: 50px;
+  height: 60px;
+}
+
+.surveydietitian-info .dietitian-details {
+  position: relative;
+  width: 85%;
+  padding-left: 90px;
+}
+
+.takesurvey .survey-ques {
+  width: 100%;
+  text-align: center;
+  padding-top: 15px;
+}
+
+.survey-options {
+  width: 100%;
+  margin-top: 25px;
+}
+
+.survey-options button {
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+.takesurvey button {
+  border-radius: 0 !important;
+}
+
+.nextaction {
+  width: 100%;
+  margin-top: 35px;
+}
+
+.nextaction button {
+  margin: 0 auto;
+  display: block;
+  background: #e28080;
+  color: #fff;
+  padding: 0 50px;
+}
+
+th.mat-header-cell {
+  font-weight: 600;
+  font-size: 15px;
+  color: #000;
+}
+
+.bgimg-customer1 {
+  background: url(/assets/img/latestbanner8.jpg) no-repeat center center fixed !important;
+  /*background-size: cover !important;*/
+}
+
+.bgimg-orderfood11 {
+  background: url(/assets/img/latestbanner8.jpg) no-repeat center center fixed !important;
+  background-size: cover !important;
+}
+
+.pendinglist {
+  width: 100%;
+}
+
+.pendingitems {
+  width: 33.33%;
+  display: inline-block;
+}
+
+.mat-row:nth-child(even) {
+  background-color: white;
+}
+
+.mat-row:nth-child(odd) {
+  background-color: aliceblue;
+}
+
+.mat-raised-button.mat-primary {
+  background: #0a5f62;
+  transition: 1s;
+}
+.mat-raised-button {
+  transition: 1s !important;
+}
+.mat-raised-button.mat-accent, .mat-raised-button.mat-warn {
+  background: linear-gradient(to right, #f10000, #820202);
+  transition: 1s;
+}
+.mat-button-disabled {
+  background: #dc1d1d85 !important;
+}
+
+.mat-raised-button:hover {
+  transform: translate(0, -5px);
+  box-shadow: 0 1px 28px 10px rgba(235, 229, 229, 0.2);
+  transition: 1s;
+}
+
+
+.mat-icon-button.mat-accent {
+  color: #f5b30b;
+}
+
+.select-options {
+  width: 100%;
+  padding-top: 70px;
+}
+
+.select-options .healthyoptions {
+  width: 13%;
+  background: #fff;
+  border-radius: 25px;
+  padding: 10px;
+  margin-left: 25px;
+  display: inline-block;
+  cursor: pointer;
+  transition: 1s;
+}
+
+.select-options .healthyoptions img {
+  margin: 0 auto;
+  display: block;
+  width: 100px;
+  height: 100px;
+}
+
+.select-options .healthyoptions p {
+  text-align: center;
+  padding-top: 20px;
+  color: #0a5f62;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.select-options .healthyoptions:hover {
+  opacity: .9;
+  transform: translate(0, -15px);
+  box-shadow: 0 1px 28px 10px rgba(0, 0, 0, .2);
+  transition: 1s;
+}
+
+.mat-checkbox-checked .mat-checkbox-background {
+  background-color: #0a5f62 !important;
+}
+.dialog-sub-heading {
+  font-weight: 500;
+  color: #000;
+}
+.page-headers{
+  color: #fff;
+  text-align: center;
+  padding: 3px 0;
+  background: #0a5f62;
+  font-size: 24px;
+}
+.mat-progress-spinner circle, .mat-spinner circle {
+  stroke: #0a5f62;
+}
+.textarea {
+  border: 1px solid #000 !important;
+  outline: none;
+}
