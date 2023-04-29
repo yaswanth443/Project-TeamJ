@@ -1,0 +1,26 @@
+<div>
+  <h2 style="text-align:center">Bill Details</h2>
+  <div class="order-block" *ngFor="let orderItem of dataSource">
+    <div class="order-list">
+      <div class="order-data">
+        <h2 style="font-size: 16px; margin-bottom: 0; display: inline">{{orderItem.parentItemName}} - {{orderItem.childItemName}}</h2>
+        <h2 style="font-size: 16px;margin-bottom: 0; float:right; display:inline">{{orderItem.quantity}} * ({{orderItem.itemWeightsAndPrices.quantity}} {{orderItem.itemWeightsAndPrices.quantityUnit.unitLookupValue}} - ${{orderItem.itemWeightsAndPrices.itemPrice}})</h2>
+      </div>
+      <div class="add-order">
+        <!--<img [src]="childItem.itemImage" style="margin-top: 0px; height: 200px; width: 200px">-->
+      </div>
+    </div>
+  </div><br /><br />
+  <div class="ordersummary" *ngIf="cartTotal!=0">
+    <p style="font-weight: 600;">Item Total <span>${{cartTotal | number:'1.2'}}</span></p>
+    <p>Order package charges <span>$10.00</span></p>
+    <p>Delivery partner fee <span>$20.00</span></p>
+    <p style="color: green;">Discount Applied <span>-$30.00</span></p>
+    <p>Taxes <span>$30.00</span></p>
+    <p style="font-weight: 600;">Bill Total <span>${{cartTotal+30 | number:'1.2'}}</span></p>
+  </div>
+  <div align="end">
+    <button mat-raised-button color="accent" [mat-dialog-close]>Close</button>&nbsp;
+  </div>
+</div>
+
