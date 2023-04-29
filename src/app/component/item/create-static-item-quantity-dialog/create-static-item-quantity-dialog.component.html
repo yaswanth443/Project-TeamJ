@@ -1,0 +1,29 @@
+<h1 mat-dialog-title>{{headerString}}</h1>
+<mat-dialog-content>
+  <mat-form-field style="width: 48%;margin-right: 15px;">
+    <mat-label>Item Quantity</mat-label>
+    <input matInput type="number" name="quantity" [(ngModel)]="quantity" required>
+    <mat-error>
+      Please provide a value
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field style="width: 48%;">
+    <mat-select [(value)]="selectedUnit">
+      <mat-option *ngFor="let unit of units; let i = index"
+                  [value]="unit" [attr.selected]="i==0">
+        {{unit.unitLookupValue}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field style="width: 97%;margin-right: 15px;">
+    <mat-label>Any Instructions</mat-label>
+    <input matInput type="text" name="instructions" [(ngModel)]="instructions" required>
+    <mat-error>
+      Please provide a value
+    </mat-error>
+  </mat-form-field>
+</mat-dialog-content>
+<div mat-dialog-actions style="float: right;">
+    <button [mat-dialog-close] mat-raised-button color="warn">Cancel</button>
+    <button mat-raised-button color="primary" (click)="save()">Add</button>
+</div>

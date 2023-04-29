@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>{{headerString}}</h1>
+<mat-dialog-content>
+  <mat-form-field >
+    <mat-select [(value)]="selectedMenu">
+      <mat-option *ngFor="let menu of menus; let i = index"
+                  [value]="menu.menuName" [attr.selected]="i==0">
+        {{menu.menuName}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-dialog-content>
+<div mat-dialog-actions>
+    <button [mat-dialog-close] mat-raised-button color="warn">Cancel</button>
+    <button mat-raised-button color="primary" (click)="save()">{{actionButtonText}}</button>
+</div>
