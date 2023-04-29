@@ -1,0 +1,60 @@
+<h1 mat-dialog-title style="text-align:center">Order Details</h1>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  
+  <ng-container matColumnDef="childItems">
+    <th mat-header-cell *matHeaderCellDef> Items </th>
+    <td mat-cell *matCellDef="let element"> {{element.childItems}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="itemName">
+    <th mat-header-cell *matHeaderCellDef> Item Category </th>
+    <td mat-cell *matCellDef="let element"> {{element.itemName}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="quantityAndUnit">
+    <th mat-header-cell *matHeaderCellDef> Quantity </th>
+    <td mat-cell *matCellDef="let element"> {{element.quantityAndUnit}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="instructions">
+    <th mat-header-cell *matHeaderCellDef> Instructions </th>
+    <td mat-cell *matCellDef="let element"> {{element.instructions}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="fromDate">
+    <th mat-header-cell *matHeaderCellDef> Required From </th>
+    <td mat-cell *matCellDef="let element"> {{element.fromDate | date}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="toDate">
+    <th mat-header-cell *matHeaderCellDef> Required Till </th>
+    <td mat-cell *matCellDef="let element"> {{element.toDate | date}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="deliveryTime">
+    <th mat-header-cell *matHeaderCellDef> Time of delivery </th>
+    <td mat-cell *matCellDef="let element"> {{element.deliveryTime}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="childItemName">
+    <th mat-header-cell *matHeaderCellDef> Select Today's Item that has to be delivered'</th>
+    <td mat-cell *matCellDef="let element">
+      <mat-form-field class="form-input" appearance="fill">
+        <mat-select [(ngModel)]="element.selectedChildItem">
+          <mat-option *ngFor="let child of getChildItemNames(element.childItems)" [value]="child">
+            {{child}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<div mat-dialog-actions align="end">
+  <button [mat-dialog-close] mat-raised-button color="accent">Close</button>
+  <button mat-raised-button color="primary" (click)="createOrder()">Create</button>
+</div>
