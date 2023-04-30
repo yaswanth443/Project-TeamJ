@@ -1,0 +1,24 @@
+<div class="flex-container" *ngIf="_sharedService.isCustomer()">
+  <div>
+    <app-list-all-customers-hired-dietitians></app-list-all-customers-hired-dietitians>
+  </div>
+</div>
+
+
+<div class="flex-container" *ngIf="_sharedService.isDietitian()">
+  <!--<div>
+    <app-list-dietician-customers></app-list-dietician-customers>
+  </div>-->
+  <div>
+    <app-dietitian-restaurant-orders-dashboard></app-dietitian-restaurant-orders-dashboard>
+  </div>
+</div>
+
+<div class="flex-container" *ngIf="_sharedService.isRestaurent()">
+  <!--<div>
+    <app-restaurant-dashboard-recurring></app-restaurant-dashboard-recurring>
+  </div>-->
+  <div>
+    <app-restaurant-dashboard-live></app-restaurant-dashboard-live>
+  </div>
+</div>
