@@ -1,0 +1,93 @@
+<h3 style="text-align: center; font-weight: bold; font-family: Arial; font-size: 28px;">
+  Rate your experience with {{username}}!
+</h3>
+<mat-dialog-content>
+  <h3>
+    Q1. Would you like to recommend the dietitian?
+    <h4>
+      <mat-radio-group aria-label="Select an option" [(ngModel)]="recommended" style="font-size: 15px">
+        <mat-radio-button [value]="true">
+          <mat-icon style="vertical-align: middle;">thumb_up</mat-icon>
+          <span style="position: relative;left: 1px;">Yes</span>
+        </mat-radio-button>&nbsp;
+        <mat-radio-button [value]="false">
+          <mat-icon style="vertical-align: middle;">thumb_down</mat-icon>
+          <span style="position: relative;left: 1px;">No</span>
+        </mat-radio-button>
+      </mat-radio-group>
+      <mat-error *ngIf="displayError && recommended == undefined">
+        Please select a value
+      </mat-error>
+    </h4>
+  </h3>
+  <h3>
+    Q2. For which health diet did you consult?
+    <h4>
+      <mat-select [(ngModel)]="commentCategory" placeholder="e.g. Healthy Heart Diet, Diet for kids" class="textarea" required>
+        <mat-option *ngFor="let option1 of ratingCategories" [value]="option1">
+          {{option1.unitLookupValue}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="displayError && commentCategory==null">
+        Please select a value
+      </mat-error>
+    </h4>
+  </h3>
+  <h3>
+    Q3. What were you most happy with?
+    <h4>
+      <div *ngFor="let option2 of commentOptions">
+        <mat-checkbox class="example-margin" [value]="option2.unitLookupCode" [checked]="isCommentOptionChecked(option2)"
+                      (change)="updateCommentOptionChecked(option2, $event)">
+          {{option2.unitLookupValue}}
+        </mat-checkbox>
+      </div>
+      <mat-error *ngIf="displayError && selectedCommentOptions.length == 0">
+        Please select a value
+      </mat-error>
+    </h4>
+  </h3>
+  <h3>
+    Q4. Your rating to the dietitian<br />
+    <button mat-icon-button
+            color="accent"
+            *ngFor="let ratingId of ratingArr; index as i"
+            [id]="'star_' + i"
+            (click)="onClick(i + 1)"
+            [matTooltip]="(ratingId + 1)+''"
+            matTooltipPosition="above">
+      <mat-icon>
+        {{ showIcon(i) }}
+      </mat-icon>
+    </button>
+    <mat-error *ngIf="displayError && !ratingCount">
+      Rating is required and cannot be zero
+    </mat-error>
+    <p class="body-2" *ngIf="ratingCount">
+      You rated <span class="body-2">{{ ratingCount }}</span> /
+      <span class="body-2">{{ starCount }}</span>
+    </p>
+  </h3>
+  <h3>
+    Q5. Tell us about your experience with the dietitian.
+    <mat-icon matTooltip="Share your stories about:
+                          Dietitian’s explanation/communication
+                          Things you liked about the Dietitian
+                          Areas of improvement for Dietitian
+
+                          Avoid:
+                          Using abuses, threats or personal insults
+                          Mentioning another dietitian’s name
+                          Promotional content" style="vertical-align: middle;">info</mat-icon>
+  </h3>
+  <mat-error *ngIf="displayError && comments == undefined">
+    Please input your comments
+  </mat-error>
+  <textarea [(ngModel)]="comments"
+            matInput placeholder="Start typing here..." class="textarea" style="width:100%;" rows="5">
+  </textarea>
+</mat-dialog-content>
+<div mat-dialog-actions align="end">
+    <button [mat-dialog-close] mat-raised-button color="primary">Cancel</button>
+    <button mat-raised-button color="warn" (click)="submitReview()">{{rating?'Update':'Submit'}}</button>
+</div>

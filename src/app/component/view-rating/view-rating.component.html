@@ -1,0 +1,37 @@
+<h2 mat-dialog-title style="text-align: center;">Ratings</h2>
+<div class="viewratings" *ngFor="let rating of ratings; let i = index">
+  <p>
+    <img src="/assets/img/profileimg1.png" style="padding: 0px;margin-top:0px;" *ngIf="i%2==0">
+    <img src="/assets/img/profileimg2.png" style="padding: 0px;margin-top:0px;" *ngIf="i%2!=0">
+    <span class="ratinguser">{{rating.username}}</span>
+  </p>
+  <p>
+    <span class="ratingvalue">{{rating.rating}}<mat-icon>star</mat-icon></span>
+    <span>Delivery</span>
+    <span class="ordertime">Yesterday</span>
+  </p>
+  <p>
+    <span class="ratingvalue">{{rating.rating}}*</span>
+    <span>On Food</span>
+    <span class="ordertime">Yesterday</span>
+  </p>
+  <p>{{rating.comments}}</p>
+</div>
+<!-- Default static ratings to display upon UI-->
+<div class="viewratings">
+  <p>
+    <img src="/assets/img/profileimg1.png" style="padding: 0px;margin-top:0px;">
+    <span class="ratinguser">Gautham Nandhan Sahoo</span>
+  </p>
+  <p><span class="ratingvalue">5<mat-icon style="position: relative;top: 1px;margin-left: 2px;">star</mat-icon></span> <span>Delivery</span> <span class="ordertime">Yesterday</span></p>
+  <p>Great taste & good ambience</p>
+</div>
+<div class="viewratings">
+  <p>
+    <img src="/assets/img/profileimg2.png" style="padding: 0px;margin-top:0px;">
+    <span class="ratinguser">Abshiktha Bhargav</span>
+  </p>
+  <p><span class="ratingvalue">4  <mat-icon style="position: relative;top: 1px;">star</mat-icon></span> <span>Delivery</span> <span class="ordertime">Yesterday</span></p>
+  <p>Great taste & good ambience</p>
+</div>
+

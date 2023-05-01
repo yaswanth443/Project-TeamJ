@@ -37,7 +37,7 @@ export class HistoricalRestaurantOrdersComponent implements OnInit {
   }
 
   loadRestaurantDeliverableOrders() {
-    this.sharedService.get(AppConstants.RESTAURANT_LIVE_ORDERS).pipe(
+    this.sharedService.get(AppConstants.RESTAURANT_ORDERS).pipe(
       take(1)
     ).subscribe({
       next: (res) => {

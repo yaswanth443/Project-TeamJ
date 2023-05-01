@@ -1,0 +1,161 @@
+<br />
+<br />
+<mat-dialog-content>
+  <h1 style="text-align: center; font-weight: bold; font-family: Arial; font-size: 28px;">
+    {{dietitian.status.unitLookupCode==''? 'Dietitian Profile' : 'Menu Status - '+dietitian.status.unitLookupValue}}
+  </h1>
+
+  <h3 class="dialog-sub-heading">
+    <b style="margin-right:7px;font-weight:500;">
+      Name:
+    </b>
+    <span style="display: inline">{{dietitian.firstName}}, {{dietitian.lastName}}</span>
+  </h3>
+
+  <h3 class="dialog-sub-heading">
+    <b style="margin-right:7px;font-weight:500;">
+      Email:
+    </b>
+    <span style="display: inline">
+      <span *ngIf="dietitian.status && dietitian.status.unitLookupCode!=''">
+        {{dietitian.userName}}
+      </span>
+      <span *ngIf="!(dietitian.status && dietitian.status.unitLookupCode!='')" matTooltip="Hire to reveal details">
+        ***************
+      </span>
+    </span>
+  </h3>
+
+  <h3 class="dialog-sub-heading">
+    <b style="margin-right:7px;font-weight:500;">
+      Mobile Number:
+    </b>
+    <span style="display: inline">
+      <span *ngIf="dietitian.status && dietitian.status.unitLookupCode!=''">
+        {{dietitian.phoneNumber}}
+      </span>
+      <span *ngIf="!(dietitian.status && dietitian.status.unitLookupCode!='')" matTooltip="Hire to reveal details">
+        ***************
+      </span>
+    </span>
+  </h3>
+  <!--<h2 *ngIf="!dietitian.status || dietitian.status.unitLookupCode==''">
+    Kindly select your preferred option:
+    <h3 style="display: inline">
+      <mat-radio-group aria-label="Select an option" [(ngModel)]="dietitian.preferredMealOption">
+        <mat-radio-button *ngFor="let option of preferredOptions" [value]="option" [checked]="getChecked(option)">
+          {{option.unitLookupValue}}&nbsp;&nbsp;
+        </mat-radio-button>
+      </mat-radio-group>
+    </h3>
+  </h2>-->
+  <h3 class="dialog-sub-heading" *ngIf="dietitian.status && dietitian.status.unitLookupCode!=''">
+    <b style="margin-right:7px;font-weight:500;">
+      Your preferred Meal option:
+    </b>
+    <span style="display: inline">
+      {{dietitian.preferredMealOption.unitLookupValue}}
+    </span>
+  </h3>
+  <h3 class="dialog-sub-heading" *ngIf="dietitian.customerInput && (dietitian.customerInput!=null || dietitian.customerInput!='')">
+    <b style="margin-right:7px;font-weight:500;">
+      Your previous inputs to Dietitian:
+    </b>
+    <span style="display: inline">{{dietitian.customerInput}}</span>
+  </h3>
+  <!--<h2 *ngIf="!dietitian.status || dietitian.status.unitLookupCode==''">
+    Frequency of meal:
+    <mat-form-field appearance="fill">
+      <mat-select [(ngModel)]="frequency" name="frequency" required>
+        <mat-option value="WEEKLY">Weekly</mat-option>
+        <mat-option value="Monthly">Monthly</mat-option>-->
+        <!--<mat-option value="ROLE_ADMIN">Admin</mat-option>-->
+      <!--</mat-select>
+    </mat-form-field>
+  </h2>-->
+  <!--<h2 *ngIf="!dietitian.status || dietitian.status.unitLookupCode==''">
+    Any Allergians:
+    <mat-form-field class="example-chip-list" appearance="fill">
+      <mat-chip-list #chipList aria-label="Enter your allergens...">
+        <mat-chip *ngFor="let allergy of dietitian.allergens" (removed)="remove(allergy)">
+          {{allergy}}
+          <button matChipRemove>
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip>
+        <input placeholder="Input your allergen..." matInput
+               [matChipInputFor]="chipList"
+               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+               [matChipInputAddOnBlur]="addOnBlur"
+               (matChipInputTokenEnd)="add($event)">
+      </mat-chip-list>
+    </mat-form-field>
+  </h2>-->
+  <h3 class="dialog-sub-heading" *ngIf="dietitian.status && dietitian.status.unitLookupCode!=''">
+    <b style="margin-right:7px;font-weight:500;">
+      Your Allergians:
+    </b>
+    <span style="display: inline">
+      {{dietitian.allergens}}
+    </span>
+  </h3>
+  <h3 class="dialog-sub-heading" *ngIf="dietitian.dietitianInput && (dietitian.dietitianInput!=null || dietitian.dietitianInput!='')" style="display: inline">
+    <b style="margin-right:7px;font-weight:500;">
+      Notes from Dietitian:
+    </b>
+    <span style="display: inline">{{dietitian.dietitianInput}}</span>
+  </h3>
+  <h3 class="dialog-sub-heading" *ngIf="!dietitian.status || dietitian.status.unitLookupCode==''">
+    <b style="margin-right:7px;font-weight:500;">
+      Leave a message for your nutritious meal menu preparation:
+    </b>
+  </h3>
+  <textarea *ngIf="!dietitian.status || dietitian.status.unitLookupCode==''" [(ngModel)]="customerInput"
+            matInput placeholder="Ex. I need food for my kids..." class="textarea" style="width:100%;" rows="5">
+  </textarea>
+  <app-display-all-items [dietitianName]="dietitian.userName"
+                         *ngIf="dietitian.status && dietitian.status.unitLookupCode!='' && dietitian.status.unitLookupCode!='SUBSCRIPTION_STATUS_1'">
+  </app-display-all-items>
+  <h3 class="dialog-sub-heading" *ngIf="dietitian.status && dietitian.status.unitLookupCode!='' && dietitian.status.unitLookupCode!='SUBSCRIPTION_STATUS_1'">
+    Quoted Amount: $ {{dietitian.subscriptionAmount}}
+  </h3>
+  <h3 class="dialog-sub-heading" *ngIf="dietitian.status && dietitian.status.unitLookupCode=='SUBSCRIPTION_STATUS_1'">
+    <b style="margin-right:7px;font-weight:500;">
+      Message Dietitian:
+    </b>
+  </h3>
+  <textarea *ngIf="dietitian.status && dietitian.status.unitLookupCode=='SUBSCRIPTION_STATUS_1'"
+            matInput placeholder="Type your message here" class="textarea" rows="5" [(ngModel)]="customerInput">
+  </textarea>
+</mat-dialog-content>
+
+
+<div mat-dialog-actions align="end">
+  <span>
+  </span>
+  <span>
+    <button *ngIf="!(!dietitian.status || dietitian.status.unitLookupCode=='')"
+            mat-raised-button color="primary" (click)="rateDietitian()">
+      Rate Dietitian
+    </button>
+    <button *ngIf="dietitian.status && dietitian.status.unitLookupCode=='SUBSCRIPTION_STATUS_1'"
+            mat-raised-button color="primary" (click)="message()">
+      Send Message
+    </button>
+    <button *ngIf="dietitian.status && dietitian.status.unitLookupCode=='SUBSCRIPTION_STATUS_2'"
+            mat-raised-button color="primary" (click)="confirmMenu()">
+      Pay $ {{dietitian.subscriptionAmount}} to Confirm Menu
+    </button>
+    <button *ngIf="dietitian.status && dietitian.status.unitLookupCode=='SUBSCRIPTION_STATUS_2'"
+            mat-raised-button color="warn" (click)="rejectMenu()">
+      Reject Menu
+    </button>
+    <button *ngIf="!dietitian.status || dietitian.status.unitLookupCode==''"
+            mat-raised-button color="primary" (click)="submit()">
+      Pay {{dietitian.price}}$ & Hire
+    </button>
+    <button mat-raised-button color="accent" (click)="close()">
+      {{(dietitian.status && dietitian.status.unitLookupCode!='') ? 'Close' : 'Cancel'}}
+    </button>
+  </span>
+</div>
