@@ -1,0 +1,61 @@
+<mat-card>
+  <mat-card-content>
+    <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+      <div style="width:100%;float:left;position: relative;z-index: 1;">
+        <span style="font-size:20px;vertical-align: middle;font: 500 20px/32px Roboto, &quot;Helvetica Neue&quot;, sans-serif;">Register to get started</span>
+        <button mat-raised-button color="primary" style="float: right;" class="defaultlogin" routerLink="/login">Login</button>
+      </div>
+      <mat-error *ngIf="!signUpValid">
+        {{errorMessage}}
+      </mat-error>
+      <mat-form-field appearance="fill">
+        <mat-label>Type of user</mat-label>
+        <mat-select [(ngModel)]="userType" placeholder="User Type" name="userType" required>
+          <mat-option value="ROLE_CUSTOMER">Customer</mat-option>
+          <mat-option value="ROLE_DIETITIAN">Dietitian</mat-option>
+          <mat-option value="ROLE_RESTAURANT">Restaurent</mat-option>
+        </mat-select>
+        <mat-error>
+          Please select a value
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput [placeholder]="userType=='ROLE_RESTAURANT'?'Restaurant Owner First Name':'First Name'" [(ngModel)]="firstName" name="firstName" required>
+        <mat-error>
+          Please provide a valid First Name
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput [placeholder]="userType=='ROLE_RESTAURANT'?'Restaurant Owner Last Name':'Last Name'" [(ngModel)]="lastName" name="lastName" required>
+        <mat-error>
+          Please provide a valid Last Name
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field *ngIf="userType=='ROLE_RESTAURANT'">
+        <input matInput placeholder="Restaurant Name" [(ngModel)]="restaurantName" name="restaurantName" required>
+        <mat-error>
+          Please provide a valid Restaurant Name
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput [placeholder]="userType=='ROLE_RESTAURANT'?'Restaurant owner email address':'Email'" [(ngModel)]="username" name="username" required>
+        <mat-error>
+          Please provide a valid email address
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput [placeholder]="userType=='ROLE_RESTAURANT'?'Contact Number at Restaurant':'Mobile Number'" [(ngModel)]="phoneNumber" name="mobile" required>
+        <mat-error>
+          Please provide a valid mobile number
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="password" placeholder="Password" [(ngModel)]="password" name="password" required>
+        <mat-error>
+          Please provide a valid password
+        </mat-error>
+      </mat-form-field>
+      <button mat-raised-button color="primary" [disabled]="!loginForm.form.valid" class="defaultregister">Register</button>
+    </form>
+  </mat-card-content>
+</mat-card>

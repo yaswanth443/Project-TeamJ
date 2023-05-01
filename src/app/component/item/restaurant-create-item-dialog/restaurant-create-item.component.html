@@ -1,0 +1,107 @@
+<mat-dialog-content>
+  <form [formGroup]="myForm" (ngSubmit)="submit()">
+
+    <div class="form-group addnewitem">
+      <mat-form-field class="form-input" appearance="fill">
+        <mat-label>Choose Item Category from below</mat-label>
+        <input type="text" [required]="true" matInput
+               formControlName="parentItemName" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
+                          (optionSelected)='selected($event.option.value)'>
+          <mat-option *ngFor="let option of filteredParentItems | async" [value]="option">
+            {{option.itemName}}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-error *ngIf="f.parentItemName.touched && f.parentItemName.invalid" class="alert alert-danger">
+          <div *ngIf="f.parentItemName.errors && f.parentItemName.errors.required">Item Category is required.</div>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-input" appearance="fill">
+        <mat-label>Choose Item from below</mat-label>
+        <mat-select [required]="true"
+                    formControlName="itemName">
+          <mat-option *ngFor="let item of childItems" [value]="item.itemName">
+            {{item.itemName}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="f.itemName.touched && f.itemName.invalid" class="alert alert-danger">
+          <div *ngIf="f.itemName.errors && f.itemName.errors.required">Item is required.</div>
+        </mat-error>
+      </mat-form-field>
+    </div><br /><br />
+
+    <div class="form-group addnewitem">
+      <mat-form-field class="form-input">
+        <mat-label for="quantity">Item quantity <small>*used for calculating price</small></mat-label>
+        <input matInput
+               formControlName="quantity"
+               id="quantity"
+               type="number"
+               class="form-control">
+        <mat-error *ngIf="f.quantity.touched && f.quantity.invalid" class="alert alert-danger">
+          <div *ngIf="f.quantity.errors && f.quantity.errors.required">Quantity is required.</div>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-input" appearance="fill" style="top:-5px">
+        <mat-select [required]="true" formControlName="quantityUnit">
+          <mat-option *ngFor="let lookup of itemLookupUnits" [value]="lookup">
+            {{lookup.unitLookupValue}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="f.parentItemName.touched && f.parentItemName.invalid" class="alert alert-danger">
+          <div *ngIf="f.parentItemName.errors && f.parentItemName.errors.required">Item Category is required.</div>
+        </mat-error>
+      </mat-form-field>
+      
+    </div>
+
+    <div class="form-group addnewitem">
+      <mat-form-field class="form-input">
+        <mat-label for="itemPrice">Item Price per inputted quantity</mat-label>
+        <input matInput
+               formControlName="itemPrice"
+               id="itemPrice"
+               type="number"
+               class="form-control">
+        <mat-error *ngIf="f.itemPrice.touched && f.itemPrice.invalid" class="alert alert-danger">
+          <div *ngIf="f.itemPrice.errors && f.itemPrice.errors.required">Item price is required.</div>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-input">
+        <mat-label for="quantity">Description for the item</mat-label>
+        <input matInput
+               formControlName="itemDescription"
+               id="itemDescription"
+               type="text"
+               class="form-control">
+        <mat-error *ngIf="f.itemDescription.touched && f.itemDescription.invalid" class="alert alert-danger">
+          <div *ngIf="f.itemDescription.errors && f.itemDescription.errors.required">Description for the item is required.</div>
+        </mat-error>
+      </mat-form-field>
+      
+    </div>
+    <br />
+    <div>
+      <!--<mat-form-field>-->
+        <button type="button" mat-raised-button color="accent" (click)="fileInput.click()">Choose an image for the Item</button>
+        <input hidden
+               #fileInput
+               formControlName="file"
+               id="file"
+               type="file"
+               class="form-control"
+               (change)="onFileChange($event)">
+        <mat-error *ngIf="f.file.touched && f.file.invalid" class="alert alert-danger">
+          <div *ngIf="f.file.errors && f.file.errors.required">Upload an image for the item.</div>
+        </mat-error>
+        <!--</mat-form-field>-->
+    </div>
+
+    <img [src]="imageSrc" *ngIf="imageSrc" style="height: 300px; width:500px">
+    <br />
+    <div mat-dialog-actions style="float: right;">
+      <button [mat-dialog-close] color="warn" mat-raised-button>Cancel</button>
+      <button mat-raised-button color="primary" [mat-dialog-close]="true" type="submit">Create</button>
+    </div>
+  </form>
+</mat-dialog-content>

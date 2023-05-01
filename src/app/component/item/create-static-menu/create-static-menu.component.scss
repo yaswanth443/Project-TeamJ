@@ -1,0 +1,100 @@
+.order-block {
+    width:100%;
+    margin-bottom: 0px;
+  }
+  .order-block .order-list {
+    width:100%;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+    display: flex;
+    padding-bottom: 10px;
+  }
+  .order-block .order-list:last-child{
+    border-bottom: none;
+  }
+  .order-block .add-order img {
+    width:auto;
+  }
+  .order-block .order-list .order-data {
+    width:80%;
+  }
+  .order-block .order-list .add-order {
+    width:20%;
+    position: relative;
+  }
+  .order-block .order-list .add-order .addorder {
+    background: #fff;
+    border: none;
+    position: absolute;
+    bottom: 35px;
+    left: 50%;
+    margin-left: -55px;
+    padding: 5px 31px;
+    border-radius: 10px;
+    line-height: unset;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+  }
+  .addorderoption {
+    display: block;
+    background: #fff;
+    border: none;
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    margin-left: -75px;
+    padding: 5px 10px;
+    border-radius: 10px;
+    line-height: unset;
+    cursor: pointer;
+  }
+  .addorderoption a {
+    padding: 0 12.3px;
+    text-decoration: none;
+    font-size: 15px;
+  }
+  .order-block .order-list .add-order .addorder:hover,.order-block .order-list .add-order .addorderoption:hover {
+    background: #0a5f62;
+    color: #fff;
+  }
+  .order-list .add-order .addorderoption:hover a {
+    color: #fff;
+  }
+  .additem-owner {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    border: 0;
+    /*background: #0a5f62;
+    color: #fff;*/
+    border-radius: 15px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    width: 80px;
+    padding: 5px;
+    text-align: center;
+  }
+  /*.additem-owner:hover {
+    background: #000;
+  }*/
+  .mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:hover:not([aria-disabled=true]) {
+    background: rgba(244, 135, 135, 0.1);
+}
+.viewcart {
+    width: 100%;
+    display: flex;
+    background:#0a5f62;
+    padding: 10px 0;
+}
+.viewcart p {
+    margin: 0;
+    width: 90%;
+    padding-left: 10px;
+    color: #fff;
+}
+.viewcart a {
+  margin-left: 25px;
+  color: #fff;
+  cursor: pointer;
+}

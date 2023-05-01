@@ -1,0 +1,21 @@
+<div>
+  <h2>Bill Details</h2>
+  <!--<mat-card style="margin:0 auto;width:95%;padding-right: 0;padding-left:22px;">
+    <mat-card-content>-->
+      <div class="order-block" *ngFor="let orderItem of dataSource.orderItems">
+        <div class="order-list">
+          <div class="order-data">
+            <h2 style="font-size: 16px;margin-bottom: 0;">{{orderItem.parentItemName}} - {{orderItem.childItemName}}: ({{orderItem.itemWeightsAndPrices.quantity}} {{orderItem.itemWeightsAndPrices.quantityUnit.unitLookupValue}} - ${{orderItem.itemWeightsAndPrices.itemPrice}}) * {{orderItem.quantity}}</h2>
+          </div>
+          <div class="add-order">
+            <img src="/assets/img/orderlist1.jpg" style="margin-top:0px;">
+          </div>
+        </div>
+      </div><br /><br />
+      <div align="end">
+        <button mat-raised-button color="accent" [mat-dialog-close]>Close</button>&nbsp;
+        <button mat-raised-button color="primary" (click)="confirm()" *ngIf="nextStatusValue">{{nextStatusValue}}</button>
+      </div>
+    <!--</mat-card-content>
+  </mat-card>-->
+</div>

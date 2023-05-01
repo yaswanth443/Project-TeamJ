@@ -1,0 +1,224 @@
+<!--<table mat-table [dataSource]="dataSource" class="mat-elevation-z8"
+       *ngIf="step==6">
+
+  <ng-container matColumnDef="firstName">
+    <th mat-header-cell *matHeaderCellDef> Dietitian's Name </th>
+    <td mat-cell *matCellDef="let element">
+        <a routerLink="" (click)="viewProfile(element.userName)">
+          <img src="/assets/img/profileimg1.png" style="width:21px;float: left;padding-right: 5px;">
+          {{element.firstName}}, {{element.lastName}}</a>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="userName">
+    <th mat-header-cell *matHeaderCellDef> Dietitian's Email </th>
+    <td mat-cell *matCellDef="let element" [matTooltip]="element.status.unitLookupCode==''? 'Hire to reveal details':''"> {{element.status.unitLookupCode==''? '************':element.userName}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="phoneNumber">
+    <th mat-header-cell *matHeaderCellDef> Dietitian's Mobile Number </th>
+    <td mat-cell *matCellDef="let element" [matTooltip]="element.status.unitLookupCode==''? 'Hire to reveal details':''"> {{element.status.unitLookupCode==''? '************':element.phoneNumber}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="price">
+    <th mat-header-cell *matHeaderCellDef> Price to hire </th>
+    <td mat-cell *matCellDef="let element"> {{element.price}}$ </td>
+  </ng-container>
+
+  <ng-container matColumnDef="rating">
+    <th mat-header-cell *matHeaderCellDef> Dietitian's Rating </th>
+    <td mat-cell *matCellDef="let element" [matTooltip]="getRatingMessage(element.userName)">
+      <button mat-icon-button
+          color="accent"
+          *ngFor="let ratingId of ratingArr; index as i"
+          [id]="'star_' + i"
+          matTooltipPosition="above"
+              style="pointer-events: none; cursor: default;">
+        <mat-icon>
+          {{ showIcon(i,element.userName) }}
+        </mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="hired">
+    <th mat-header-cell *matHeaderCellDef> Hired? </th>
+    <td mat-cell *matCellDef="let element"> <b>{{element.status.unitLookupCode==''?'No':'Yes'}}</b> </td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef> Hire </th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-raised-button color="primary" (click)="hire(element)">{{element.status.unitLookupCode==''?'Hire':'View'}}</button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>-->
+<div class="select-options" *ngIf="step==0">
+  <div class="healthyoptions" (click)="optionSelected(diabeticDietLookup)">
+    <img src="/assets/img/Diabetes.png" style="padding: 0px;margin-top:0px;">
+    <p>{{diabeticDietLookup.unitLookupValue}}</p>
+  </div>
+  <div class="healthyoptions" (click)="optionSelected(kidsDietLookup)">
+    <img src="/assets/img/Kids.png" style="padding: 0px;margin-top:0px;">
+    <p>{{kidsDietLookup.unitLookupValue}}</p>
+  </div>
+  <div class="healthyoptions" (click)="optionSelected(healthyDietLookup)">
+    <img src="/assets/img/Diet.png" style="padding: 0px;margin-top:0px;">
+    <p>{{healthyDietLookup.unitLookupValue}}</p>
+  </div>
+  <div class="healthyoptions" (click)="optionSelected(weightGainDietLookup)">
+    <img src="/assets/img/weight.png" style="padding: 0px;margin-top:0px;">
+    <p>{{weightGainDietLookup.unitLookupValue}}</p>
+  </div>
+  <div class="healthyoptions" (click)="optionSelected(reduceCholesterolDietLookup)">
+    <img src="/assets/img/reduce.png" style="padding: 0px;margin-top:0px;">
+    <p>{{reduceCholesterolDietLookup.unitLookupValue}}</p>
+  </div>
+  <div class="healthyoptions" (click)="step=1">
+    <img src="/assets/img/Other.png" style="padding: 0px;margin-top:0px;">
+    <p>Others</p>
+  </div>
+</div>
+
+<div *ngIf="step==2">
+  <div *ngFor="let dietitian of dietitiansData">
+    <app-user-profile [dietitianDetails]="dietitian"
+                      (hireEventEmitter)="recieveInputs($event)"
+                      [filter]="selectedFilter">
+    </app-user-profile>
+  </div>
+  <div class="parent-div" *ngIf="!dietitiansData || dietitiansData.length<=0">
+    <mat-card>
+      <mat-card-content>
+        <h2>No dietitians for the selected category!! Dont worry, we have noted this and will revert you within some time</h2>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<div class="takesurvey">
+  <div class="surveydietitian-info" *ngIf="step!=2 && step!=1 && step!=0">
+    <img src="/assets/img/doctor.png" style="padding: 0px;margin-top:0px;" *ngIf="!(selectedRecord.userProfileImage && selectedRecord.userProfileImage!=null && selectedRecord.userProfileImage!='')">
+    <img [src]="selectedRecord.userProfileImage" style="padding: 0px;margin-top:0px;" *ngIf="selectedRecord.userProfileImage && selectedRecord.userProfileImage!=null && selectedRecord.userProfileImage!=''">
+    <div class="dietitian-details">
+      <h2 style="margin: 0;font-size: 17px;">Hi! I'm {{selectedRecord.firstName}}, Registered Dietitian & Nutritionist </h2>
+      <p>
+        Take our quiz which will help us in getting to know better about you
+      </p>
+    </div>
+
+  </div>
+  <mat-card class="surveyblock" *ngIf="step!=2 && step!=0">
+    <div class="survey-ques" *ngIf="step==1">
+      <h2>What do you need help with?</h2>
+      <p>By answering these quick questions we can match you to the right nutritionist.</p>
+      <div class="survey-options">
+        <button mat-raised-button *ngFor="let option of allServiceCategories"
+                (click)="optionSelected(option)">
+          {{option.unitLookupValue}}
+        </button>
+      </div>
+    </div>
+    <div class="survey-ques" *ngIf="step==3">
+      <h2>Have you ever worked with a nutritionist?</h2>
+      <p>By answering these quick questions we can match you to the right nutritionist.</p>
+      <div class="survey-options">
+        <button mat-raised-button (click)="mySurvey('Yes','quesres')">Yes</button>
+        <button mat-raised-button (click)="mySurvey('No','quesres')">No</button>
+        <button mat-raised-button (click)="mySurvey('Other','quesres')">Other</button>
+      </div>
+    </div>
+    <div class="survey-ques" *ngIf="step==4">
+      <h2>Which best describes your sex?  </h2>
+      <p>Sex and hormones affect how we metabolize food.</p>
+      <div class="survey-options">
+        <button mat-raised-button (click)="mySurvey('Male','sex')">Male</button>
+        <button mat-raised-button (click)="mySurvey('Female','sex')">Female</button>
+        <button mat-raised-button (click)="mySurvey('Other','sex')">Other</button>
+      </div>
+    </div>
+    <div class="survey-ques" *ngIf="step==5">
+      <h2>How would you rate your sleeping habits? </h2>
+      <p>Sleep plays a big role in regulating our hormones which affect our metabolism, energy, stress, and even hunger levels.</p>
+      <div class="survey-options">
+        <button mat-raised-button (click)="mySurvey('Excellent','sleep')">Excellent</button>
+        <button mat-raised-button (click)="mySurvey('Good','sleep')">Good</button>
+        <button mat-raised-button (click)="mySurvey('Fair','sleep')">Fair</button>
+        <button mat-raised-button (click)="mySurvey('Poor','sleep')">Poor</button>
+      </div>
+
+    </div>
+    <div class="survey-ques" *ngIf="step==6">
+      <h2>How would you rate your nutrition habits?</h2>
+      <p>Water affects digestion, elimination of toxins, hunger levels, boosts your metabolic rate, and much more.</p>
+      <div class="survey-options">
+        <button mat-raised-button (click)="mySurvey('Excellent','nutrition')">Excellent</button>
+        <button mat-raised-button (click)="mySurvey('Good','nutrition')">Good</button>
+        <button mat-raised-button (click)="mySurvey('Fair','nutrition')">Fair</button>
+        <button mat-raised-button (click)="mySurvey('Poor','nutrition')">Poor</button>
+      </div>
+    </div>
+    <div class="survey-ques" *ngIf="step==7">
+      <h2>How would you rate your hydration habits?</h2>
+      <p>Water affects digestion, elimination of toxins, hunger levels, boosts your metabolic rate, and much more.</p>
+      <div class="survey-options">
+        <button mat-raised-button (click)="mySurvey('Excellent','hydration')">Excellent</button>
+        <button mat-raised-button (click)="mySurvey('Good','hydration')">Good</button>
+        <button mat-raised-button (click)="mySurvey('Fair','hydration')">Fair</button>
+        <button mat-raised-button (click)="mySurvey('Poor','hydration')">Poor</button>
+      </div>
+    </div>
+    <div class="survey-ques" *ngIf="step==8">
+      <h2>How would you rate your physical activity habits?</h2>
+      <p>Physical activity affects our mood, energy, sleep, stress, hormones and nutrition habits.</p>
+      <div class="survey-options">
+        <button mat-raised-button (click)="mySurvey('Excellent','phyActivity')">Excellent</button>
+        <button mat-raised-button (click)="mySurvey('Good','phyActivity')">Good</button>
+        <button mat-raised-button (click)="mySurvey('Fair','phyActivity')">Fair</button>
+        <button mat-raised-button (click)="mySurvey('Poor','phyActivity')">Poor</button>
+      </div>
+    </div>
+    <div class="survey-ques" *ngIf="step==9">
+      <h2>What is the frequency that your require for your meal?</h2>
+      <p>Physical activity affects our mood, energy, sleep, stress, hormones and nutrition habits.</p>
+      <div class="survey-options">
+        <button mat-raised-button (click)="mySurvey('Weekly','mealFrequency')">Weekly</button>
+        <button mat-raised-button (click)="mySurvey('Monthly','mealFrequency')">Monthly</button>
+      </div>
+    </div>
+    <div class="survey-ques" *ngIf="step==10">
+      <h2>What is your meal preference?</h2>
+      <p>Physical activity affects our mood, energy, sleep, stress, hormones and nutrition habits.</p>
+      <div class="survey-options">
+        <button mat-raised-button *ngFor="let option of preferredOptions" (click)="mySurvey(option,'mealPreference')">{{option.unitLookupValue}}</button>
+      </div>
+    </div>
+    <div class="survey-ques" *ngIf="step==11">
+      <h2>Any Allergians?</h2>
+      <p>Physical activity affects our mood, energy, sleep, stress, hormones and nutrition habits.</p>
+      <mat-form-field class="example-chip-list" appearance="fill">
+        <mat-chip-list #chipList aria-label="Enter your allergens...">
+          <mat-chip *ngFor="let allergy of selectedRecord.allergens" (removed)="remove(allergy)">
+            {{allergy}}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip>
+          <input placeholder="Input your allergen..." matInput
+                 [matChipInputFor]="chipList"
+                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                 [matChipInputAddOnBlur]="addOnBlur"
+                 (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+      </mat-form-field>
+    </div>
+    <div class="nextaction" *ngIf="step==11">
+      <button mat-raised-button color="primary" (click)="mySurvey('Done','allergens')">Next</button>
+    </div>
+  </mat-card>
+</div>
+
+

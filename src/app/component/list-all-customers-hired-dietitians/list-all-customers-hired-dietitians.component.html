@@ -1,0 +1,77 @@
+<mat-card *ngIf="dataEmpty">
+  <h2>
+    You have no hired Dietitians
+    <button mat-raised-button color="primary" (click)="refresh()" style="float: right">
+      <mat-icon>refresh</mat-icon>
+    </button>
+  </h2>
+</mat-card>
+
+<mat-card *ngIf="error">
+  <h2>
+    Error occurred while fetching data
+    <button mat-raised-button color="primary" (click)="refresh()" style="float: right">
+      <mat-icon>refresh</mat-icon>
+    </button>
+  </h2>
+</mat-card>
+
+<!--<mat-card class="pending-items">
+<div class="pendinglist">
+  <div class="pendingitems">
+    <img src="/assets/img/profileimg2.png" style="padding: 0px;margin-top:0px;">
+    <p>Pending items</p>
+  </div>
+  <div class="pendingitems">
+    <img src="/assets/img/profileimg1.png" style="padding: 0px;margin-top:0px;">
+    <p>Confirmed items</p>
+  </div>
+  <div class="pendingitems">
+    <img src="/assets/img/profileimg2.png" style="padding: 0px;margin-top:0px;">
+    <p>All items</p>
+  </div>
+</div>
+</mat-card>-->
+
+<table *ngIf="!dataEmpty && !error" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <caption><h1 class="page-headers">Your Hired Dietitians</h1></caption>
+  <ng-container matColumnDef="firstName">
+    <th mat-header-cell *matHeaderCellDef> First Name </th>
+    <td mat-cell *matCellDef="let element">
+      <img src="/assets/img/profileimg1.png" style="width:21px;float: left;padding-right: 5px;" *ngIf="!(element.userProfileImage && element.userProfileImage!=null && element.userProfileImage!='')">
+      <img [src]="element.userProfileImage" style="width:21px;float: left;padding-right: 5px;border-radius: 15px;height: 21px;" *ngIf="element.userProfileImage && element.userProfileImage!=null && element.userProfileImage!=''">
+      {{element.firstName}}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="lastName">
+    <th mat-header-cell *matHeaderCellDef> Last Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="userName">
+    <th mat-header-cell *matHeaderCellDef> Dietitian's Email </th>
+    <td mat-cell *matCellDef="let element"> {{element.userName}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="phoneNumber">
+    <th mat-header-cell *matHeaderCellDef> Dietitian's Mobile </th>
+    <td mat-cell *matCellDef="let element"> {{element.phoneNumber}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="status">
+    <th mat-header-cell *matHeaderCellDef> Status </th>
+    <td mat-cell *matCellDef="let element"> {{element.status.unitLookupValue}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef> Actions </th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-raised-button color="primary" (click)="viewMenu(element)">View</button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

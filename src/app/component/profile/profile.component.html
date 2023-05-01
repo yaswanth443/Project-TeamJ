@@ -1,0 +1,465 @@
+<mat-card>
+  <mat-card-content>
+    <form #loginForm="ngForm">
+      <h2>Your Profile Details</h2>
+      <mat-error *ngIf="!updatesValid">
+        {{error}}
+      </mat-error>
+      <div *ngIf="_sharedService.isDietitian()">
+        <div class="flex-container profile-block">
+          <div class="profile-fields">
+            <mat-form-field>
+              <mat-label>Title</mat-label>
+              <mat-select [(ngModel)]="userTitle" placeholder="Your title" name="userTitle" required [disabled]="disableInputs">
+                <mat-option value="Mr.">Mr.</mat-option>
+                <mat-option value="Mr.">Ms.</mat-option>
+                <mat-option value="Mr.">Dr.</mat-option>
+              </mat-select>
+              <mat-error>
+                Please select a value
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="profile-fields">
+            <mat-form-field>
+              <input matInput placeholder="First Name" [(ngModel)]="firstName" name="firstName"
+                     required [disabled]="disableInputs">
+              <mat-error>
+                Please provide a valid First Name
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="profile-fields">
+            <mat-form-field>
+              <input matInput placeholder="Last Name" [(ngModel)]="lastName" name="lastName" required
+                     [disabled]="disableInputs">
+              <mat-error>
+                Please provide a valid Last Name
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+        <div class="flex-container profile-block">
+          <div class="profile-fields">
+            <mat-form-field>
+              <input matInput placeholder="Email" [(ngModel)]="username" name="username" [disabled]="true" required>
+              <mat-error>
+                Please provide a valid email address
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="profile-fields">
+            <mat-form-field>
+              <input matInput placeholder="Mobile Number" [(ngModel)]="phoneNumber" name="mobile"
+                     required [disabled]="disableInputs">
+              <mat-error>
+                Please provide a valid mobile number
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div *ngIf="_sharedService.isDietitian()" class="profile-fields">
+            <mat-form-field>
+              <input matInput placeholder="Base Price" [(ngModel)]="price" name="price"
+                     required [disabled]="disableInputs" type="number">
+              <mat-error>
+                Please provide a valid number
+              </mat-error>
+              <span matPrefix>$&nbsp;</span>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="flex-container profile-block">
+          <div class="profile-fields">
+            <mat-form-field>
+              <mat-label>Overall Experience</mat-label>
+              <input matInput placeholder="Overall Experience" [(ngModel)]="overallExperience" name="overallExperience"
+                     required [disabled]="disableInputs" type="number" style="width:40px;">
+              <span matPostfix> yrs</span>
+              <mat-error>
+                Please select a value
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="profile-fields">
+            <mat-form-field>
+              <mat-label>Experience as Dietitian/Nutritionist</mat-label>
+              <input matInput placeholder="Experience" [(ngModel)]="specialistExperience" name="specialistExperience"
+                     required [disabled]="disableInputs" type="number">
+              <mat-error>
+                Please select a value
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="flex-container profile-block">
+          <div class="profile-fields">
+            <mat-form-field>
+              <mat-label>Degree of Qualification</mat-label>
+              <mat-select placeholder="Qualified Degree"
+                          [(value)]="qualifiedDegree"
+                          required [disabled]="disableInputs" (selectionChange)="degreeChange($event)">
+                <mat-option *ngFor="let option1 of degreeCategories" [value]="option1">
+                  {{option1.unitLookupValue}}
+                </mat-option>
+              </mat-select>
+              <mat-error>
+                Please select a value
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="profile-fields">
+            <mat-form-field>
+              <mat-label>University of Qualification</mat-label>
+              <input matInput placeholder="Qualified University" [(ngModel)]="degreeUniversity" name="degreeUniversity"
+                     required [disabled]="disableInputs">
+              <mat-error>
+                Please select a value
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div style="width:20%">
+            <mat-form-field>
+              <mat-label>Year of Qualification</mat-label>
+              <input matInput placeholder="Qualified Year" [(ngModel)]="degreeYear" name="degreeYear"
+                     required [disabled]="disableInputs" type="number">
+              <mat-error>
+                Please select a value
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <button mat-raised-button color="primary" [disabled]="disableInputs"
+                  style="width:100px;margin-bottom: 15px;" (click)="addExtraDegrees()">
+            Add more
+          </button>
+        </div>
+        <div class="flex-container profile-block" *ngFor="let education of extraDegrees; let i=index">
+          <div class="profile-fields">
+            <mat-form-field>
+              <mat-label>Degree of Qualification</mat-label>
+              <mat-select placeholder="Qualified Degree"
+                          [(value)]="education.qualifiedDegree"
+                          required [disabled]="disableInputs" (selectionChange)="extraDegreeChange($event, education)">
+                <mat-option *ngFor="let option1 of degreeCategories" [value]="option1">
+                  {{option1.unitLookupValue}}
+                </mat-option>
+              </mat-select>
+              <mat-error>
+                Please select a value
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="profile-fields">
+            <mat-form-field>
+              <mat-label>University of Qualification</mat-label>
+              <input matInput placeholder="Qualified University" [(ngModel)]="education.degreeUniversity" name="{{'degreeUniversity'+i}}"
+                     required [disabled]="disableInputs">
+              <mat-error>
+                Please select a value
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="profile-fields">
+            <mat-form-field>
+              <mat-label>Year of Qualification</mat-label>
+              <input matInput placeholder="Qualified Year" [(ngModel)]="education.degreeYear" name="{{'degreeYear'+i}}"
+                     required [disabled]="disableInputs" type="number">
+              <mat-error>
+                Please select a value
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div>
+          <mat-form-field>
+            <mat-label>Describe about you</mat-label>
+            <input matInput placeholder="Customers can see this" [(ngModel)]="bio" name="bio"
+                   required [disabled]="disableInputs">
+            <mat-error>
+              Please select a value
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <mat-label>Address</mat-label>
+            <input matInput [(ngModel)]="address" name="address"
+                   required [disabled]="disableInputs">
+            <mat-error>
+              Please select a value
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <h2 style="margin-bottom: 5px;">
+          <mat-label>Experience Details</mat-label>
+          <button mat-raised-button color="primary" [disabled]="disableInputs"
+                  style="float: right;width:100px;margin-bottom: 15px;" (click)="addExperiences()">
+            Add
+          </button>
+        </h2>
+        <div class="flex-container profile-block" *ngFor="let experience of experienceDetails; let i=index">
+          <div class="profile-fields">
+            <mat-form-field>
+              <mat-label>Organization that you served</mat-label>
+              <input matInput placeholder="Served Organization" [(ngModel)]="experience.organization" name="{{'organization'+i}}"
+                     required [disabled]="disableInputs">
+              <mat-error>
+                Please select a value
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="profile-fields">
+            <mat-form-field>
+              <mat-label>From year</mat-label>
+              <input matInput placeholder="From year" [(ngModel)]="experience.fromYear" name="{{'fromYear'+i}}"
+                     required [disabled]="disableInputs">
+              <mat-error>
+                Please select a value
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="profile-fields">
+            <mat-form-field>
+              <mat-label>To year</mat-label>
+              <input matInput placeholder="To Year" [(ngModel)]="experience.toYear" name="{{'toYear'+i}}"
+                     type="number" required [disabled]="disableInputs">
+              <mat-error>
+                Please select a value
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <br />
+
+        <h2 style="margin-bottom: 5px;">
+          <mat-label>Any awards or recognitions</mat-label>
+          <button mat-raised-button color="primary" [disabled]="disableInputs"
+                  style="float: right;width:100px;margin-bottom: 15px;" (click)="addRecognitions()">
+            Add
+          </button>
+        </h2>
+        <div class="flex-container profile-block" *ngFor="let recognition of recognitions; let i=index">
+          <div style="width:50%">
+            <mat-form-field>
+              <mat-label>Awards of recognitions you recieved</mat-label>
+              <input matInput placeholder="Recieved award name" [(ngModel)]="recognition.awardsOrRecognitions" name="{{'awardsOrRecognitions'+i}}"
+                     required [disabled]="disableInputs">
+              <mat-error>
+                Please select a value
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div style="width:50%">
+            <mat-form-field>
+              <mat-label>Recognized year</mat-label>
+              <input matInput placeholder="Recognized year" [(ngModel)]="recognition.yearOfRecognition" name="{{'yearOfRecognition'+i}}"
+                     required [disabled]="disableInputs">
+              <mat-error>
+                Please select a value
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="services-offered">
+          <!--<mat-form-field>-->
+
+          <h2 style="margin-bottom: 5px;"><mat-label>Services that you offer</mat-label></h2>
+          <div class="checkbox-block">
+            <!--<input matInput [(ngModel)]="services" name="services"
+        required [disabled]="disableInputs">-->
+            <span *ngFor="let option2 of servicesCategory" class="service-list">
+              <mat-checkbox class="example-margin" [disabled]="disableInputs"
+                            [checked]="isServiceOptionChecked(option2)"
+                            (change)="updateServiceOptionChecked(option2, $event)">
+                <!--[value]="option2.unitLookupCode"
+            [checked]="isServiceOptionChecked(option2)"
+            (change)="updateServiceOptionChecked(option2, $event)"-->
+                {{option2.unitLookupValue}}
+              </mat-checkbox>
+            </span>
+            <!--<mat-error>
+          Please select a value
+        </mat-error>-->
+          </div>
+          <!--</mat-form-field>-->
+        </div>
+
+        <div class="flex-container profile-block" style="padding-top: 20px;">
+          <div>
+            <button type="button" style="color: #fff;" mat-raised-button color="accent" (click)="fileInput.click()" [disabled]="disableInputs">Choose your profile image</button>
+            <input hidden
+                   #fileInput
+                   formControlName="file"
+                   id="file"
+                   type="file"
+                   class="form-control"
+                   (change)="onFileChange($event)">
+          </div>
+          <img [src]="imageSrc" *ngIf="imageSrc" style="height: 250px; width:305px;padding-left: 25px;">
+        </div>
+      </div>
+
+      <div *ngIf="_sharedService.isCustomer()">
+        <div class="flex-container profile-block">
+          <div class="profile-fields">
+            <mat-form-field>
+              <input matInput placeholder="First Name" [(ngModel)]="firstName" name="firstName"
+                     required [disabled]="disableInputs">
+              <mat-error>
+                Please provide a valid First Name
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="profile-fields">
+            <mat-form-field>
+              <input matInput placeholder="Last Name" [(ngModel)]="lastName" name="lastName" required
+                     [disabled]="disableInputs">
+              <mat-error>
+                Please provide a valid Last Name
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="profile-fields">
+            <mat-form-field>
+              <input matInput placeholder="Email" [(ngModel)]="username" name="username" [disabled]="true" required>
+              <mat-error>
+                Please provide a valid email address
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="flex-container profile-block">
+          <div class="profile-fields">
+            <mat-form-field>
+              <input matInput placeholder="Mobile Number" [(ngModel)]="phoneNumber" name="mobile"
+                     required [disabled]="disableInputs">
+              <mat-error>
+                Please provide a valid mobile number
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <br /><br />
+        <div class="flex-container profile-block">
+          <div>
+            <!--<mat-form-field>-->
+            <button type="button" style="color: #fff;" mat-raised-button color="accent" (click)="fileInput.click()" [disabled]="disableInputs">Choose your profile image</button>
+            <input hidden
+                   #fileInput
+                   formControlName="file"
+                   id="file"
+                   type="file"
+                   class="form-control"
+                   (change)="onFileChange($event)">
+            <!--<mat-error *ngIf="imageSrc==''" class="alert alert-danger">
+          Upload an image for the Restaurant.
+        </mat-error>-->
+            <!--</mat-form-field>-->
+          </div>
+
+          <img [src]="imageSrc" *ngIf="imageSrc" style="height: 250px; width:305px;padding-left: 25px;">
+        </div>
+      </div>
+
+      <div *ngIf="_sharedService.isRestaurent()">
+        <div class="flex-container profile-block">
+          <div class="profile-fields">
+            <mat-form-field>
+              <input matInput placeholder="Restaurant Name" [(ngModel)]="restaurantName" name="restaurantName"
+                     required [disabled]="disableInputs">
+              <mat-error>
+                Please provide a valid Restaurant Name
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="profile-fields">
+            <mat-form-field>
+              <input matInput placeholder="Email" [(ngModel)]="username" name="username" [disabled]="true" required>
+              <mat-error>
+                Please provide a valid email address
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="flex-container profile-block">
+          <div class="profile-fields">
+            <mat-form-field>
+              <input matInput placeholder="Mobile Number" [(ngModel)]="phoneNumber" name="mobile"
+                     required [disabled]="disableInputs">
+              <mat-error>
+                Please provide a valid mobile number
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="profile-fields">
+            <mat-form-field>
+              <input matInput placeholder="Average Cost for two people" [(ngModel)]="avgCost" name="avgCost"
+                     required [disabled]="disableInputs" type="number">
+              <mat-error>
+                Please provide a valid number
+              </mat-error>
+              <span matPrefix>$&nbsp;</span>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="flex-container profile-block">
+          <div>
+            <!--<mat-form-field>-->
+            <button style="color: #fff;" type="button" mat-raised-button color="accent" (click)="fileInput.click()" [disabled]="disableInputs">Choose an image for the Restaurant</button>
+            <input hidden
+                   #fileInput
+                   formControlName="file"
+                   id="file"
+                   type="file"
+                   class="form-control"
+                   (change)="onFileChange($event)">
+            <!--<mat-error *ngIf="imageSrc==''" class="alert alert-danger">
+          Upload an image for the Restaurant.
+        </mat-error>-->
+            <!--</mat-form-field>-->
+          </div>
+
+          <img [src]="imageSrc" *ngIf="imageSrc" style="height: 250px; width:305px;padding-left: 25px;">
+        </div>
+        <div class="services-offered">
+          <!--<mat-form-field>-->
+
+          <h2 style="margin-bottom: 5px;"><mat-label>Cuisines that you offer</mat-label></h2>
+          <!--<input matInput [(ngModel)]="services" name="services"
+      required [disabled]="disableInputs">-->
+          <span *ngFor="let option2 of cuisinesCategory" class="service-list">
+            <mat-checkbox class="example-margin" [disabled]="disableInputs"
+                          [checked]="isCuisineOptionChecked(option2)"
+                          (change)="updateCuisineOptionChecked(option2, $event)">
+              <!--[value]="option2.unitLookupCode"
+          [checked]="isServiceOptionChecked(option2)"
+          (change)="updateServiceOptionChecked(option2, $event)"-->
+              {{option2.unitLookupValue}}
+            </mat-checkbox>
+          </span>
+          <!--<mat-error>
+        Please select a value
+      </mat-error>-->
+          <!--</mat-form-field>-->
+        </div>
+      </div>
+
+
+
+      <button mat-raised-button color="primary" [disabled]="!loginForm.form.valid" *ngIf="!disableInputs"
+              style="width:100px; margin-top: 10px;" (click)="onSubmit()">
+        Modify
+      </button>&nbsp;&nbsp;
+      <button mat-raised-button color="primary" [disabled]="loginForm.form.valid" *ngIf="!disableInputs"
+              style="width:100px; margin-top: 10px;" (click)="loadInitialDetails()">
+        Cancel
+      </button>
+      <button mat-raised-button color="primary" *ngIf="disableInputs"
+              style="width:100px;margin-top: 10px;" (click)="editClick()">
+        Edit Profile
+      </button>
+    </form>
+  </mat-card-content>
+</mat-card>

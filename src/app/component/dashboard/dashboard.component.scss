@@ -1,0 +1,19 @@
+mat-card {
+  width: 95%;
+  min-height: 30%;
+  bottom: 0;
+  text-align: center;
+}
+
+mat-form-field {
+  display: flex;
+}
+
+.flex-container {
+  display: flex;
+}
+
+.flex-container > div {
+  width:100%;
+  padding: 20px;
+}

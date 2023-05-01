@@ -1,0 +1,54 @@
+<br />
+<br />
+<mat-dialog-content>
+  <h1 style="text-align: center; font-weight: bold; font-family: Arial; font-size: 36px;">Order food for Customer</h1>
+  <h2>Name: <h3 style="display: inline">{{customer.firstName}}, {{customer.lastName}}</h3></h2>
+  <h2>Email: <h3 style="display: inline">{{customer.userName}}</h3></h2>
+  <h2>Mobile Number: <h3 style="display: inline">{{customer.phoneNumber}}</h3></h2>
+  <h2>Customer Address: <h3 style="display: inline">Dummy Address</h3></h2>
+  <h2 *ngIf="customer.preferredMealOption">Preferred Meal: <h3 style="display: inline">{{customer.preferredMealOption.unitLookupValue}}</h3></h2>
+  <h2>Listed Allergens: <h3 style="display: inline">{{customer.allergens ? customer.allergens : 'N/A'}}</h3></h2>
+  <h2 *ngIf="customer.customerInput && (customer.customerInput!=null || customer.customerInput!='')">
+    Notes from Customer:
+    <h3 style="display: inline">{{customer.customerInput}}</h3>
+  </h2>
+  <app-list-menu-items *ngIf="showItemTable" [customerName]="customer.userName" [viewMode]="viewMode(customer.status)"></app-list-menu-items>
+</mat-dialog-content>
+
+<div mat-dialog-actions align="end">
+  <span *ngIf="!viewMode(customer.status)">
+    <span *ngIf="!messageCustomer && !showItemTable">
+      <button mat-raised-button color="primary" (click)="message()">Click to Message Customer</button>
+      &nbsp;&nbsp;
+    </span>
+    <span *ngIf="messageCustomer && !showItemTable">
+      <button mat-raised-button color="primary" (click)="sendMessage()">Send Message</button>
+      &nbsp;&nbsp;
+    </span>
+    <span *ngIf="!messageCustomer && !showItemTable">
+      <button mat-raised-button color="primary" (click)="prepareMeal()">
+        {{customer.status.unitLookupCode == 'SUBSCRIPTION_STATUS_1'? 'Prepare Meal':'Modify Meal'}}
+      </button>
+      &nbsp;&nbsp;
+    </span>
+    <span *ngIf="showItemTable">
+      <button mat-raised-button color="primary" (click)="sendMeal()">Send Meal</button>
+      &nbsp;&nbsp;
+    </span>
+  </span>
+  <span *ngIf="viewMode(customer.status)">
+    <span *ngIf="!messageCustomer && !showItemTable">
+      <button mat-raised-button color="primary" (click)="prepareMeal()">
+        View Items
+      </button>
+      &nbsp;&nbsp;
+    </span>
+    <span *ngIf="!(!messageCustomer && !showItemTable)">
+      <button mat-raised-button color="primary" (click)="confirmOrder()">
+        Confirm Order
+      </button>
+      &nbsp;&nbsp;
+    </span>
+  </span>
+  <button mat-raised-button color="accent" (click)="close()">Close</button>
+</div>

@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>{{headerString}}</h1>
+<mat-dialog-content>
+  <mat-form-field >
+    <mat-select [(value)]="selectedWeight">
+      <mat-option *ngFor="let itemPriceDetail of itemWeightsAndPrices; let i = index"
+              [value]="itemPriceDetail" [attr.selected]="i==0">
+        {{itemPriceDetail.quantity}} {{itemPriceDetail.quantityUnit.unitLookupValue}} -
+        ${{itemPriceDetail.itemPrice}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-dialog-content>
+<div mat-dialog-actions>
+    <button [mat-dialog-close] mat-raised-button color="warn">Cancel</button>
+    <button mat-raised-button color="primary" (click)="save()">{{actionButtonText}}</button>
+</div>
